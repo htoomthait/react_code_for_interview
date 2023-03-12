@@ -6,12 +6,14 @@ const BalanceText = styled(Typography)`
     margin-bottom: 20px;
 `
 
-const Balance = () => {
+const Balance = ({transactions}) => {
   
-  
+  const amounts = transactions.map(transaction => transaction.amount);
+  const total = amounts.reduce((subTotal, item) => (subTotal += item), 0).toFixed(2);
+
   return (
     <Box>
-        <BalanceText>  Balance : 100      </BalanceText>
+        <BalanceText>  Balance : {total}      </BalanceText>
     </Box>
   )
 }

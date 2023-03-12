@@ -1,10 +1,11 @@
 import './App.css';
-import { Component, useState} from 'react';
+import { useState} from 'react';
 import { Typography, styled, Box } from '@mui/material';
 import Balance from './components/Balance';
 import ExpenseCard from './components/ExpenseCard';
 import NewTransaction from './components/NewTransaction';
 import Transactions from './components/Transactions';
+import { v4 as uuidv4 } from 'uuid';    
 
 
 const Header = styled(Typography)`
@@ -30,23 +31,33 @@ const CComponent = styled(Box)`
 function App() {
   
   const [transactions, setTransactions] = useState([
-    { id : 1,  text :  'Memos',  amount : -20 },
-    { id : 1,  text :  'Salary',  amount : 3000 },
-    { id : 1,  text :  'Book',  amount : -100 },
-    { id : 1,  text :  'Bonus',  amount : 1500 },
+    { id : uuidv4(),  text :  'Memos',  amount : -20 },
+    { id : uuidv4(),  text :  'Salary',  amount : 3000 },
+    { id : uuidv4(),  text :  'Book',  amount : -100 },
+    { id : uuidv4(),  text :  'Bonus',  amount : 1500 },
   ]);
+
+  const addTransaction = (tran) => {
+    setTransactions(prevState => [...prevState, tran]);
+  }
+  
+  const deleteTransaction = (id) => {
+    let filteredTransactions = transactions.filter(item => item.id !== id);
+    setTransactions(filteredTransactions);
+  }
+
 
   return (
     <div className="App">
         <Header > Expense Tracker</Header>
         <CComponent>
             <Box>
-              <Balance />
-              <ExpenseCard />
-              <NewTransaction />
+              <Balance transactions={transactions} />
+              <ExpenseCard transactions={transactions}/>
+              <NewTransaction add={addTransaction}/>
             </Box>
             <Box>
-              <Transactions transactions={transactions} />
+              <Transactions transactions={transactions} deleteTran={deleteTransaction} />
             </Box>
         </CComponent>
     </div>

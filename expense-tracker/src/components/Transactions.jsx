@@ -6,7 +6,7 @@ const Container = styled(Box)`
     
 `
 
-const Transactions = ({transactions}) => {
+const Transactions = ({transactions, deleteTran}) => {
   return (
     <Container>
         <Typography variant="h5">Transaction History</Typography>
@@ -14,7 +14,11 @@ const Transactions = ({transactions}) => {
         <List>
             {
                 transactions.map(transaction => (
-                   <Transaction transaction={transaction} />
+                   <Transaction 
+                      transaction={transaction} 
+                      key={transaction.id}
+                      deleteTran={deleteTran}
+                    />
                 ))
             }
         </List>
