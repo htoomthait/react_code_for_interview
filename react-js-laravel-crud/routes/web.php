@@ -36,9 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 Route::resource('posts', PostController::class);
 
-
+Route::get('/posts-datatable-page', [PostController::class, 'datatableShowPage'])->name('posts.datatable.show_page');
+Route::get('/posts-datatable-data', [PostController::class, 'datatableData'])->name('posts.datatable.data');

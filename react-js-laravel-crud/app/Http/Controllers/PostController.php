@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -46,7 +47,6 @@ class PostController extends Controller
         ]);
 
         return redirect()->route('posts.index');
-
     }
 
     /**
@@ -100,5 +100,26 @@ class PostController extends Controller
     {
         Post::find($id)->delete();
         return redirect()->route('posts.index');
+    }
+
+
+    public function datatableShowPage()
+    {
+        return Inertia::render('Posts/PostDatatable');
+    }
+
+    public function datatableData()
+    {
+        $posts = Post::query();
+
+        return DataTables::eqloquent($posts)
+            ->addColumn('action', function ($post) {
+                return "
+                    <button class='btn btn-primary'>Edit</button>
+                    <button class='btn btn-danger'>Delete</button>
+                ";
+            })
+            ->rawColumns(['action'])
+            ->toJson();
     }
 }
