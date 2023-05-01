@@ -8,7 +8,7 @@
         {
             "id": 2,
             "title": "Task - 2",
-            "completed": false
+            "completed": true
         }
     ]
 }
