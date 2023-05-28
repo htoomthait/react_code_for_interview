@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
 const Profile = (props) => {
-    props.setPageTitle("Profile Page")
-  return (
-    <div>Profile</div>
-  )
-}
+    useEffect(() => {
+        props.setPageTitle("Profile Page");
+    }, []);
 
-export default Profile
+    return <div>Profile</div>;
+};
+
+export default Profile;

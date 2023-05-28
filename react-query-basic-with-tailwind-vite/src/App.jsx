@@ -18,9 +18,6 @@ function App() {
         },
     });
 
-    
-
-
     return (
         <div className="App">
             <div className="container mx-auto border-2">
@@ -45,7 +42,10 @@ function App() {
                                     <Profile setPageTitle={setPageTitle} />
                                 }
                             />
-                            <Route path="*" element={<h1> PAGE NOT FOUND</h1>} />
+                            <Route
+                                path="*"
+                                element={<h1> PAGE NOT FOUND</h1>}
+                            />
                         </Routes>
                     </Router>
                 </QueryClientProvider>

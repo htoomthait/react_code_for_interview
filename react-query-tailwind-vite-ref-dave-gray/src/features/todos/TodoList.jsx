@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getTodos, addTodo, updateTodo, deleteTodo } from "../../apis/todosApi";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 const TodoList = () => {
@@ -57,9 +57,10 @@ const TodoList = () => {
                     placeholder="Enter new todo"
                 />
             </div>
-            <buttton className="submit">
-                <FontAwesomeIcon icon={faTrash} />
-            </buttton>
+            <button className="submit">
+                <FontAwesomeIcon icon={faSave} /> Save New Task
+            </button>{" "}
+            <br /> <br />
         </form>
     );
 
@@ -103,7 +104,7 @@ const TodoList = () => {
     return (
         <div>
             <h1 className="text-red-400">Todo List</h1>
-            {newItemSection}
+            {newItemSection()}
             {content}
         </div>
     );

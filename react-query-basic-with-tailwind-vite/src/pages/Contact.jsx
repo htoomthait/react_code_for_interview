@@ -1,12 +1,9 @@
-import React from 'react'
+import React from "react";
 
 const Contact = (props) => {
-    
-  props.setPageTitle("Contact Page");
-  
-  return (
-    <div>Contact</div>
-  )
-}
+    props.setPageTitle("Contact Page");
 
-export default Contact
+    return <div>Contact</div>;
+};
+
+export default Contact;
