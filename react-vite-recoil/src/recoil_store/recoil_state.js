@@ -47,6 +47,7 @@ const todoListStatsState = selector({
             totalCompletedNum,
             totalUnCompleteNum,
             percentageCompleted,
+            allText,
         };
     },
 });
