@@ -32,21 +32,22 @@ const todoListStatsState = selector({
     get: ({ get }) => {
         const todoList = get(todoListState);
         const totalNum = todoList.length;
-        const totalCompletedNum = todoList.filter((item) => item.isComplete);
+        const totalCompletedNum = todoList.filter(
+            (item) => item.isComplete
+        ).length;
         let allText = "";
-
         todoList
             .filter((item) => !item.isComplete)
-            .map((item) => allText + "" + item.text);
-        const totalUnCompleteNum = todoList.filter((item) => !item.isComplete);
-        const percentageCompleted =
+            .map((item) => (allText = allText + " " + item.text));
+        const totalUncompletedNum = totalNum - totalCompletedNum;
+        const percentCompleted =
             totalNum === 0 ? 0 : totalCompletedNum / totalNum;
 
         return {
             totalNum,
             totalCompletedNum,
-            totalUnCompleteNum,
-            percentageCompleted,
+            totalUncompletedNum,
+            percentCompleted,
             allText,
         };
     },

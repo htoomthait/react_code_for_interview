@@ -1,25 +1,25 @@
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { todoListState } from "../recoil/atoms";
-import { uuid } from "uuidv4";
+import { todoListState } from "../recoil_store/recoil_state";
+import uniqid from "uniquid";
 
 // get unique id
-let getId = () => uuid();
+let getId = () => {
+    return uniqid();
+};
 
 const TodoItemCreator = () => {
     const [inputValue, setInputValue] = useState("");
     const setTodoList = useSetRecoilState(todoListState);
 
     const addItem = () => {
-        setTodoList((oldTodoList) => [
-            ...oldTodoList,
-            {
-                id: getId(),
-                text: inputValue,
-                isComplete: false,
-            },
-        ]);
+        const newItem = {
+            id: getId(),
+            text: inputValue,
+            isComplete: false,
+        };
 
+        setTodoList((currentTodoList) => [...currentTodoList, newItem]);
         setInputValue("");
     };
 

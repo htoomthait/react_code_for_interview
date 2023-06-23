@@ -1,26 +1,25 @@
 import { useRecoilValue } from "recoil";
 import { todoListStatsState } from "../recoil_store/recoil_state";
 
-const TodoStats = () => {
+const TodoListStats = () => {
     const {
         totalNum,
         totalCompletedNum,
-        totalUnCompleteNum,
-        percentageCompleted,
+        totalUncompletedNum,
+        percentCompleted,
         allText,
     } = useRecoilValue(todoListStatsState);
-
-    const formatedPercentCompleted = Math.round(percentageCompleted);
+    const formatedPercentCompleted = Math.round(percentCompleted * 100);
 
     return (
-        <ul>
+        <ul style={{ listStyle: "none" }}>
             <li> Total items: {totalNum}</li>
             <li> Items completed: {totalCompletedNum}</li>
-            <li> Items not completed: {totalUnCompleteNum}</li>
-            <li> Percentage completed: {formatedPercentCompleted}</li>
+            <li> Items not completed: {totalUncompletedNum}</li>
+            <li> Percentage completed: {formatedPercentCompleted} %</li>
             <li> Text not completed: {allText}</li>
         </ul>
     );
 };
 
-export default TodoStats;
+export default TodoListStats;
