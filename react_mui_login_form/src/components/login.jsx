@@ -7,6 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { useRef } from "react";
+import { loginAPI } from "../apis";
 
 const Login = () => {
     const paperStyle = {
@@ -27,8 +28,9 @@ const Login = () => {
         const password = passwordRef.current.value;
 
         let payload = { username: username, password: password };
-        console.log(payload);
+        loginAPI(payload);
     };
+    console.log(import.meta.env.VITE_BACKEND_URL);
 
     return (
         <>
