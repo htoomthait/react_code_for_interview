@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import { useRef } from "react";
 import { loginAPI } from "../apis";
+import { useMutation, useQueryClient } from "react-query";
 
 const Login = () => {
     const paperStyle = {
@@ -18,19 +19,33 @@ const Login = () => {
     };
     const avatarStyle = { backgroundColor: "#509eb2" };
     const btnStyle = { margin: "8px 0" };
+    const queryClient = useQueryClient();
 
     const usernameRef = useRef();
     const passwordRef = useRef();
 
-    const onSignIn = (e) => {
+    const userLoginMutation = useMutation(loginAPI, {
+        onSuccess: (response) => {
+            console.log("Success response data", response);
+            const accessToken = response.data.authorization.access_token;
+            localStorage.setItem("access_token", accessToken);
+            localStorage.setItem("refresh_token", accessToken);
+            queryClient.invalidateQueries("api/login");
+        },
+        onError: (error) => {
+            console.log("Error: ", error);
+        },
+    });
+
+    const onSignIn = async (e) => {
         e.preventDefault();
         const username = usernameRef.current.value;
         const password = passwordRef.current.value;
 
-        let payload = { username: username, password: password };
-        loginAPI(payload);
+        let payload = { email: username, password: password };
+
+        userLoginMutation.mutate(payload);
     };
-    console.log(import.meta.env.VITE_BACKEND_URL);
 
     return (
         <>
@@ -77,6 +92,7 @@ const Login = () => {
                         style={btnStyle}
                         onClick={onSignIn}
                     >
+                        {userLoginMutation.isLoading && "Loading..."}
                         Sign In
                     </Button>
                     <Typography>
