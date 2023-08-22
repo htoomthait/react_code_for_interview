@@ -7,8 +7,11 @@ import {
     InputBase,
     Badge,
     Avatar,
+    Menu,
+    MenuItem,
 } from "@mui/material";
 import { Pets, Mail, Notifications } from "@mui/icons-material";
+import { useState } from "react";
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -41,6 +44,14 @@ const UserBox = styled(Box)(({ theme }) => ({
 }));
 
 const NavBar = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleMenuClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
     return (
         <AppBar position="sticky">
             <StyledToolbar>
@@ -74,6 +85,7 @@ const NavBar = () => {
                             height: 30,
                         }}
                         src="https://i.pravatar.cc/64"
+                        onClick={handleMenuClick}
                     />
                 </Icons>
                 <UserBox>
@@ -87,6 +99,28 @@ const NavBar = () => {
                     <Typography>John Doe</Typography>
                 </UserBox>
             </StyledToolbar>
+            <Menu
+                id="demo-positioned-menu"
+                aria-labelledby="demo-positioned-button"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleMenuClose}
+                anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                }}
+                transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                }}
+                sx={{
+                    marginTop: 2,
+                }}
+            >
+                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+                <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            </Menu>
         </AppBar>
     );
 };
