@@ -1,5 +1,14 @@
-import { AppBar, Toolbar, styled, Typography, Box } from "@mui/material";
-import { Pets } from "@mui/icons-material";
+import {
+    AppBar,
+    Toolbar,
+    styled,
+    Typography,
+    Box,
+    InputBase,
+    Badge,
+    Avatar,
+} from "@mui/material";
+import { Pets, Mail, Notifications } from "@mui/icons-material";
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -9,11 +18,26 @@ const StyledToolbar = styled(Toolbar)({
 const Search = styled("div")(({ theme }) => ({
     backgroundColor: "white",
     padding: "0 10px",
-    borderRadius: "5px",
+    borderRadius: theme.shape.borderRadius,
+    width: "40%",
 }));
 
 const Icons = styled(Box)(({ theme }) => ({
-    backgroundColor: "white",
+    display: "none",
+    gap: "20px",
+    alignItems: "center",
+    [theme.breakpoints.up("sm")]: {
+        display: "flex",
+    },
+}));
+
+const UserBox = styled(Box)(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    gap: "20px",
+    [theme.breakpoints.up("sm")]: {
+        display: "none",
+    },
 }));
 
 const NavBar = () => {
@@ -34,8 +58,34 @@ const NavBar = () => {
                         display: { xs: "block", sm: "none" },
                     }}
                 />
-                <Search> Search </Search>
-                <Icons> Icons </Icons>
+                <Search>
+                    <InputBase placeholder="search"> Search </InputBase>
+                </Search>
+                <Icons>
+                    <Badge badgeContent={4} color="error">
+                        <Mail color="white" />
+                    </Badge>
+                    <Badge badgeContent={3} color="error">
+                        <Notifications color="white" />
+                    </Badge>
+                    <Avatar
+                        sx={{
+                            width: 30,
+                            height: 30,
+                        }}
+                        src="https://i.pravatar.cc/64"
+                    />
+                </Icons>
+                <UserBox>
+                    <Avatar
+                        sx={{
+                            width: 30,
+                            height: 30,
+                        }}
+                        src="https://i.pravatar.cc/64"
+                    />
+                    <Typography>John Doe</Typography>
+                </UserBox>
             </StyledToolbar>
         </AppBar>
     );
