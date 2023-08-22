@@ -87,7 +87,7 @@ const RightBar = () => {
                         <ListItemAvatar>
                             <Avatar
                                 alt="Remy Sharp"
-                                src="https://material-ui.com/static/images/avatar/3.jpg"
+                                src="https://i.pravatar.cc/150?u=remysharp@xyz.com"
                             />
                         </ListItemAvatar>
                         <ListItemText
@@ -114,7 +114,7 @@ const RightBar = () => {
                         <ListItemAvatar>
                             <Avatar
                                 alt="Travis Howard"
-                                src="/static/images/avatar/2.jpg"
+                                src="https://i.pravatar.cc/150?u=travishoward@xyz.com"
                             />
                         </ListItemAvatar>
                         <ListItemText
@@ -141,7 +141,7 @@ const RightBar = () => {
                         <ListItemAvatar>
                             <Avatar
                                 alt="Cindy Baker"
-                                src="/static/images/avatar/3.jpg"
+                                src="https://i.pravatar.cc/150?u=cindybaker@xyz.com"
                             />
                         </ListItemAvatar>
                         <ListItemText
