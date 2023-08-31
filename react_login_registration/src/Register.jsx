@@ -23,7 +23,7 @@ const Register = () => {
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
-    const [matchPwd, setMatchPwd] = useState(false);
+    const [matchPwd, setMatchPwd] = useState("");
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
@@ -40,7 +40,7 @@ const Register = () => {
 
     useEffect(() => {
         setValidPwd(PWD_REGEX.test(pwd));
-        setValidPwd(pwd === matchPwd);
+        setValidMatch(pwd === matchPwd);
     }, [pwd, matchPwd]);
 
     useEffect(() => {
@@ -167,9 +167,10 @@ const Register = () => {
                             onChange={(e) => setPwd(e.target.value)}
                             value={pwd}
                             required
-                            aria-invalid={validName ? "false" : "true"}
-                            onFocus={() => setUserFocus(true)}
-                            onBlur={() => setUserFocus(false)}
+                            aria-invalid={validPwd ? "false" : "true"}
+                            aria-describedby="pwdnote"
+                            onFocus={() => setPwdFocus(true)}
+                            onBlur={() => setPwdFocus(false)}
                         />
                         <p
                             id="pwdnote"
@@ -192,7 +193,60 @@ const Register = () => {
                             <span aria-label="dollar sign">$</span>{" "}
                             <span aria-label="percent">%</span>
                         </p>
+                        <label htmlFor="confirm_pwd">
+                            Confirm Password:
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={validMatch ? "valid" : "hide"}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
+                                className={
+                                    validMatch || !matchPwd ? "hide" : "invalid"
+                                }
+                            />
+                        </label>
+                        <input
+                            type="password"
+                            id="confirm_pad"
+                            autoComplete="off"
+                            onChange={(e) => setMatchPwd(e.target.value)}
+                            value={matchPwd}
+                            required
+                            aria-invalid={validMatch ? "false" : "true"}
+                            aria-describedby="confirmnote"
+                            onFocus={() => setMatchFocus(true)}
+                            onBlur={() => setMatchFocus(false)}
+                        />
+                        <p
+                            id="confirmnote"
+                            className={
+                                matchFocus && !validMatch
+                                    ? "instruction"
+                                    : "offscreen"
+                            }
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Must match the first password input field
+                        </p>
+
+                        <button
+                            disabled={
+                                !validName || !validPwd || !validMatch
+                                    ? true
+                                    : false
+                            }
+                        >
+                            Sign Up
+                        </button>
                     </form>
+                    <p>
+                        Already registered? <br />
+                        <span className="line">
+                            {/*put router link here*/}
+                            <a href="#">Sign In</a>
+                        </span>
+                    </p>
                 </section>
             )}
         </>
