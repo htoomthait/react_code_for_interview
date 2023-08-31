@@ -9,6 +9,12 @@
       "id": 2,
       "title": "Task - 2",
       "completed": false
+    },
+    {
+      "userId": 1,
+      "title": "task-3",
+      "completed": false,
+      "id": 3
     }
   ]
 }

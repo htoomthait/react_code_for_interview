@@ -4,7 +4,7 @@ import {
     faTimes,
     faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwsomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "./api/axios";
 
 const USER_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9]{3,23}$/;
@@ -109,11 +109,11 @@ const Register = () => {
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">
                             Username:
-                            <FontAwsomeIcon
+                            <FontAwesomeIcon
                                 icon={faCheck}
                                 className={validName ? "valid" : "hide"}
                             />
-                            <FontAwsomeIcon
+                            <FontAwesomeIcon
                                 icon={faTimes}
                                 className={
                                     validName || !user ? "hide" : "invalid"
@@ -129,6 +129,7 @@ const Register = () => {
                             value={user}
                             required
                             aria-invalid={validName ? "false" : "true"}
+                            aria-describedby="uidnote"
                             onFocus={() => setUserFocus(true)}
                             onBlur={() => setUserFocus(false)}
                         />
@@ -140,10 +141,56 @@ const Register = () => {
                                     : "offscreen"
                             }
                         >
-                            <FontAwsomeIcon icon={faInfoCircle} />4 to 24
+                            <FontAwesomeIcon icon={faInfoCircle} />4 to 24
                             characters, letters and numbers only <br />
                             Must begin with a letter <br />
                             Letters, numbers, underscores, hyphens allowed
+                        </p>
+
+                        <label htmlFor="password">
+                            Password:
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={validPwd ? "valid" : "hide"}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
+                                className={
+                                    validPwd || !pwd ? "hide" : "invalid"
+                                }
+                            />
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            autoComplete="off"
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                            aria-invalid={validName ? "false" : "true"}
+                            onFocus={() => setUserFocus(true)}
+                            onBlur={() => setUserFocus(false)}
+                        />
+                        <p
+                            id="pwdnote"
+                            className={
+                                pwdFocus && !validPwd
+                                    ? "instructions"
+                                    : "offscreen"
+                            }
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            8 to 24 characters.
+                            <br />
+                            Must include uppercase and lowercase letters, a
+                            number and a special character.
+                            <br />
+                            Allowed special characters:{" "}
+                            <span aria-label="exclamation mark">!</span>{" "}
+                            <span aria-label="at symbol">@</span>{" "}
+                            <span aria-label="hashtag">#</span>{" "}
+                            <span aria-label="dollar sign">$</span>{" "}
+                            <span aria-label="percent">%</span>
                         </p>
                     </form>
                 </section>
