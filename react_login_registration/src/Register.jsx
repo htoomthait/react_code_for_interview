@@ -9,6 +9,8 @@ import axios from "./api/axios";
 
 const USER_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
 const REGISTER_URL = "/register";
 
 const Register = () => {
@@ -18,6 +20,10 @@ const Register = () => {
     const [user, setUser] = useState("");
     const [validName, setValidName] = useState(false);
     const [userFocus, setUserFocus] = useState(false);
+
+    const [email, setEmail] = useState("");
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
 
     const [pwd, setPwd] = useState("");
     const [validPwd, setValidPwd] = useState(false);
@@ -39,13 +45,17 @@ const Register = () => {
     }, [user]);
 
     useEffect(() => {
+        setValidEmail(EMAIL_REGEX.test(email));
+    }, [email]);
+
+    useEffect(() => {
         setValidPwd(PWD_REGEX.test(pwd));
         setValidMatch(pwd === matchPwd);
     }, [pwd, matchPwd]);
 
     useEffect(() => {
         setErrMsg("");
-    }, [user, pwd, matchPwd]);
+    }, [user, email, pwd, matchPwd]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,8 +63,9 @@ const Register = () => {
         // if button enabled with JS hack
         const v1 = USER_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
+        const v3 = EMAIL_REGEX.test(email);
 
-        if (!v1 || !v2) {
+        if (!v1 || !v2 || !v3) {
             setErrMsg("Invalid Entry");
             return;
         }
@@ -68,6 +79,8 @@ const Register = () => {
                     withCredentials: true,
                 }
             );
+
+            console.log(response);
 
             console.log(response?.data);
             console.log(response?.accessToken);
@@ -145,6 +158,41 @@ const Register = () => {
                             characters, letters and numbers only <br />
                             Must begin with a letter <br />
                             Letters, numbers, underscores, hyphens allowed
+                        </p>
+                        <label htmlFor="email">
+                            Email:
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={validEmail ? "valid" : "hide"}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
+                                className={
+                                    validEmail || !email ? "hide" : "invalid"
+                                }
+                            />
+                        </label>
+                        <input
+                            type="text"
+                            id="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            autoComplete="off"
+                            required
+                            aria-invalid={validEmail ? "false" : "true"}
+                            aria-describedby="emailnote"
+                            onFocus={() => setEmailFocus(true)}
+                            onBlur={() => setEmailFocus(false)}
+                        />
+                        <p
+                            id="emailnote"
+                            className={
+                                emailFocus && email && !validEmail
+                                    ? "instructions"
+                                    : "offscreen"
+                            }
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} /> Please enter
+                            valid email address
                         </p>
 
                         <label htmlFor="password">
