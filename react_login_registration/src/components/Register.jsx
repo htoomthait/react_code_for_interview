@@ -5,7 +5,8 @@ import {
     faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "./api/axios";
+import axios from "../api/axios";
+import { Link } from "react-router-dom";
 
 const USER_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -297,7 +298,7 @@ const Register = () => {
                         Already registered? <br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="#">Sign In</a>
+                            <Link href="/">Sign In</Link>
                         </span>
                     </p>
                 </section>

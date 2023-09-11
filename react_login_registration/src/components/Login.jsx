@@ -1,8 +1,14 @@
 import { useRef, useState, useEffect } from "react";
-import axios from "./api/axios";
+import axios from "../api/axios";
+import useAuth from "../hooks/useAuth";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
 const LOGIN_URL = "login";
 
 const Login = () => {
+    const { setAuth } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
     const userRef = useRef();
     const errRef = useRef();
 
@@ -10,6 +16,7 @@ const Login = () => {
     const [pwd, setPass] = useState("");
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
+    const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
         userRef.current.focus();
@@ -34,10 +41,11 @@ const Login = () => {
             );
             console.log(response);
             const accessToken = response?.authorization?.access_token;
-            const roles = response?.user?.roles;
+            setAuth({ user, accessToken });
             setUser("");
             setPass("");
             setSuccess(true);
+            navigate(from, { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg("Network error");
@@ -96,7 +104,7 @@ const Login = () => {
                         Need an Account? <br />
                         <span className="line">
                             {/* put router link here to register page */}
-                            <a href="#">Sign up</a>
+                            <Link to="/register">Sign up</Link>
                         </span>
                     </p>
                 </section>
