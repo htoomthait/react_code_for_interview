@@ -18,7 +18,7 @@ const Home = () => {
         <section>
             <h1>Home</h1>
             <br />
-            <Link to="/eitor"> Go to editor page</Link>
+            <Link to="/editor"> Go to editor page</Link>
             <br />
             <Link to="/admin"> Go to the Admin page</Link>
             <br />

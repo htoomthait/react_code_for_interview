@@ -39,14 +39,17 @@ const Login = () => {
                     },
                 }
             );
-            console.log(response);
-            const accessToken = response?.authorization?.access_token;
-            setAuth({ user, accessToken });
+            const accessToken = response?.data?.authorization?.access_token;
+            const authUser = response?.data?.user;
+            const roles = authUser.roles.map((role) => role.id);
+            const authData = { authUser, roles, accessToken };
+            setAuth(authData);
             setUser("");
             setPass("");
             setSuccess(true);
             navigate(from, { replace: true });
         } catch (err) {
+            console.log(err);
             if (!err?.response) {
                 setErrMsg("Network error");
             } else if (err.response?.status === 401) {

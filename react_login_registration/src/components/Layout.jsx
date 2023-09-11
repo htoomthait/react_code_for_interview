@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dome";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
     return (
-        <main className="app">
+        <main className="App">
             <Outlet />
         </main>
     );
