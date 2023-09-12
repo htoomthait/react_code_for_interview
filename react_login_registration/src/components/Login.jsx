@@ -42,7 +42,11 @@ const Login = () => {
             const accessToken = response?.data?.authorization?.access_token;
             const authUser = response?.data?.user;
             const roles = authUser.roles.map((role) => role.id);
-            const authData = { authUser, roles, accessToken };
+            const authData = {
+                authuser: authUser,
+                roles: roles,
+                accessToken: accessToken,
+            };
             setAuth(authData);
             setUser("");
             setPass("");
