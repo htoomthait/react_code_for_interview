@@ -23,7 +23,7 @@ const useRefreshToken = () => {
                 };
             });
 
-            return response.authorization.access_token;
+            return response.data.authorization.access_token;
         } catch (err) {
             console.error(err);
         }

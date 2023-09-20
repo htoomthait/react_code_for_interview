@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "../api/axios";
-import useRefreshToken from "../hooks/useRefreshToken";
 import useAuth from "../hooks/useAuth";
 
 const Users = () => {
     const [users, setUsers] = useState();
-    const refresh = useRefreshToken();
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
     const { auth } = useAuth();
 
     useEffect(() => {
@@ -14,16 +17,33 @@ const Users = () => {
 
         const getUsers = async () => {
             try {
-                const response = await axios.get("/users", {
+                // const response = await axios.get("/users", {
+                //     signal: controller.signal,
+                //     headers: {
+                //         "Access-Control-Allow-Credentials": true,
+                //         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+                //         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                //         Authorization: `Bearer ${auth?.accessToken}`,
+                //     },
+                // });
+
+                const response = await axiosPrivate.get("/users", {
                     signal: controller.signal,
                     headers: {
-                        Authorization: `Bearer ${auth.accessToken}`,
+                        "Access-Control-Allow-Credentials": true,
+                        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+                        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                        Authorization: `Bearer ${auth?.accessToken}`,
                     },
                 });
-
-                isMounted && setUsers(response?.data?.users);
+                console.log(response.data.users);
+                isMounted && setUsers(response.data.users);
             } catch (err) {
                 console.error(err);
+                // navigate("/login", {
+                //     state: { from: location },
+                //     replace: true,
+                // });
             }
         };
 
@@ -33,23 +53,20 @@ const Users = () => {
             isMounted = false;
             controller.abort();
         };
-    }, [auth.accessToken, setUsers]);
+    }, [auth?.accessToken]);
 
     return (
         <article>
-            <h2>User List</h2>
-            {users?.length > 0 ? (
+            <h2>Users List</h2>
+            {users?.length ? (
                 <ul>
                     {users.map((user, i) => (
                         <li key={i}>{user?.name}</li>
                     ))}
                 </ul>
             ) : (
-                <p> No users to display </p>
+                <p>No users to display</p>
             )}
-
-            <button onClick={() => refresh()}>Refresh</button>
-            <br />
         </article>
     );
 };
