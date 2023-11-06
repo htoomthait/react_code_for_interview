@@ -23,6 +23,9 @@ dependencies:
   '@mui/styled-engine-sc':
     specifier: 6.0.0-alpha.4
     version: 6.0.0-alpha.4(styled-components@6.1.0)
+  '@tanstack/react-query':
+    specifier: ^5.7.2
+    version: 5.7.2(react-dom@18.2.0)(react@18.2.0)
   axios:
     specifier: ^1.6.0
     version: 1.6.0
@@ -944,6 +947,27 @@ packages:
 
   /@popperjs/core@2.11.8:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
+
+  /@tanstack/query-core@5.7.2:
+    resolution: {integrity: sha512-vPYoNCOI8W+jFLnyEAYQL7/qURE7XzVE/TvkmNSko8LU55jFshee342p4GNFOTsYFgJty7Da5bw4m2P3vaKWMw==}
+    dev: false
+
+  /@tanstack/react-query@5.7.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-NMsfz0Wd3VPDvSpX9sw2x07r0kf9HwuAlNNHQvwMUHM7EcuVN/LYmlmTe40dWER1c/92Jhc5LODdtW0PyvHsFg==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 5.7.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@types/babel__core@7.20.3:

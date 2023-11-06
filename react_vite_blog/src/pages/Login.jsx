@@ -12,8 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
+import { backendUrl } from '../config/app';
 
 
 const Copyright = (props) => {
@@ -37,7 +38,7 @@ const Login = () => {
 
     const loginMutation =  useMutation({
         mutationFn: (loginData) => {
-            return axios.post('/login', loginData)
+            return axios.post(backendUrl+'login', loginData)
         }
     });
 

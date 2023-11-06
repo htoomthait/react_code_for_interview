@@ -13,7 +13,7 @@ function App() {
   
 
   return (
-    <QueryClientProvider clinet={queryClient}>
+    <QueryClientProvider client={queryClient}>
       <Login />
     </QueryClientProvider>
   )
