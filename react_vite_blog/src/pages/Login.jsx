@@ -38,7 +38,17 @@ const Login = () => {
 
     const loginMutation =  useMutation({
         mutationFn: (loginData) => {
-            return axios.post(backendUrl+'login', loginData)
+            return axios.post(backendUrl+'login', loginData).then((res) => {
+              
+              const accessToken = res.data.data.access_token;
+              const refreshToken = res.data.data.refresh_token;
+              // console.log(res.data.data);
+              localStorage.setItem('accessToken', accessToken);
+              localStorage.setItem('refreshToken', refreshToken);
+              console.log(accessToken);
+            }).catch((err) => {
+              console.log(err);
+            });
         }
     });
 
