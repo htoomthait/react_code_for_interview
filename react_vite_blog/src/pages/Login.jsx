@@ -13,8 +13,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import { backendUrl } from '../config/app';
+import { fnLoginMutaton } from '../api';
 
 
 const Copyright = (props) => {
@@ -36,21 +35,20 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const loginMutation =  useMutation({
-        mutationFn: (loginData) => {
-            return axios.post(backendUrl+'login', loginData).then((res) => {
-              
-              const accessToken = res.data.data.access_token;
-              const refreshToken = res.data.data.refresh_token;
-              // console.log(res.data.data);
-              localStorage.setItem('accessToken', accessToken);
-              localStorage.setItem('refreshToken', refreshToken);
-              console.log(accessToken);
-            }).catch((err) => {
-              console.log(err);
-            });
+    const loginMutation = useMutation({
+        mutationFn: fnLoginMutaton,
+        onSuccess: (res) => {
+            console.log(res);
+        },
+        onError: (err) => {
+            console.log(err.response.data.messages);
         }
+    
     });
+
+    
+
+
 
 
     const handleSubmit = (e) => {
