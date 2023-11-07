@@ -34,6 +34,7 @@ const Copyright = (props) => {
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [formError, setFormError] = useState('');
 
     const loginMutation = useMutation({
         mutationFn: fnLoginMutaton,
@@ -42,9 +43,11 @@ const Login = () => {
         },
         onError: (err) => {
             console.log(err.response.data.messages);
+            setFormError(err.response.data.messages.request_msg);
         }
     
     });
+
 
     
 
@@ -60,7 +63,9 @@ const Login = () => {
             password : password
         };
 
+        setFormError('');
         loginMutation.mutate(payload);
+        
 
 
     }
@@ -136,6 +141,9 @@ const Login = () => {
             >
               Sign In
             </Button>
+            <span style={{marginTop: "4px", color : "red", fontSize: "11px"}}>{formError}</span>
+              
+            
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
