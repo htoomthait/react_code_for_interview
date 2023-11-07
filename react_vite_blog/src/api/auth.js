@@ -18,9 +18,11 @@ const fnLoginMutaton = async (loginData) => {
     }
 
     const accessToken = response.data.data.access_token;
-    const refreshToken = response.data.data.refresh_token;    
+    const refreshToken = response.data.data.refresh_token;                
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
+
+    
 
     return response.data.data;
 }

@@ -10,36 +10,50 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { fnLoginMutaton } from '../api';
+import { websiteTheme } from '../config/theme';
+import { useSetRecoilState } from 'recoil';
+import {authUserState} from '../recoilStore';
+import { useRecoilValue } from 'recoil';
+import { CopyRight } from '../components/CopyRight';
 
 
-const Copyright = (props) => {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
 
-  const defaultTheme = createTheme();
+  
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [formError, setFormError] = useState('');
+    const setAuthUser = useSetRecoilState(authUserState);
+    const authUser = useRecoilValue(authUserState);
+    
 
     const loginMutation = useMutation({
         mutationFn: fnLoginMutaton,
         onSuccess: (res) => {
             console.log(res);
+
+            const accessToken = res.access_token;
+            const refreshToken = res.refresh_token;                
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+
+            const authUserVal = {
+                id : res.user.id,
+                name : res.user.name,
+                email : res.user.email,
+                accessToken : res.accessToken,
+                refreshToken : res.refreshToken,
+                loginStatus : true
+            };
+            setAuthUser(authUserVal);
+            console.log(authUser);
+
+
         },
         onError: (err) => {
             console.log(err.response.data.messages);
@@ -56,7 +70,6 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('submit');
 
         const payload = {
             email : email,
@@ -73,7 +86,7 @@ const Login = () => {
 
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={websiteTheme}>
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
       <Grid
@@ -141,7 +154,10 @@ const Login = () => {
             >
               Sign In
             </Button>
-            <span style={{marginTop: "4px", color : "red", fontSize: "11px"}}>{formError}</span>
+            
+            <Typography variant="body2" color="error.main" align="center" sx={{ my : 1}} fontSize="11">
+              {formError}
+            </Typography>
               
             
             <Grid container>
@@ -156,7 +172,7 @@ const Login = () => {
                 </Link>
               </Grid>
             </Grid>
-            <Copyright sx={{ mt: 5 }} />
+            <CopyRight sx={{ mt: 5 }} />
           </Box>
         </Box>
       </Grid>
