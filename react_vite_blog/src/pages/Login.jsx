@@ -18,7 +18,7 @@ import { websiteTheme } from '../config/theme';
 import { useSetRecoilState } from 'recoil';
 import {authUserState} from '../recoilStore';
 import { useRecoilValue } from 'recoil';
-import { CopyRight } from '../components/CopyRight';
+import Copyright from '../components/CopyRight';
 
 
 
@@ -172,7 +172,7 @@ const Login = () => {
                 </Link>
               </Grid>
             </Grid>
-            <CopyRight sx={{ mt: 5 }} />
+            <Copyright sx={{ mt: 5 }} />
           </Box>
         </Box>
       </Grid>
