@@ -1,127 +1,124 @@
 {
-    "traders" : [
-        {
-            "id": "37019703-61db-53ab-add5-06dbce3a01ba",
-            "desk": "D-8439",
-            "commodity": "Cocoa",
-            "traderName": "Victor Mann",
-            "traderEmail": "hiwiret@co.gr",
-            "quantity": 48201
-        },
-        {
-            "id": "5c3f4a05-8e10-546d-82bf-b08685f158ad",
-            "desk": "D-9778",
-            "commodity": "Cocoa",
-            "traderName": "Adele Harrington",
-            "traderEmail": "sot@rub.cl",
-            "quantity": 48933
-        },
-        {
-            "id": "2bb0dda3-7927-5cc7-a545-62d20c1037a1",
-            "desk": "D-6026",
-            "commodity": "Adzuki bean",
-            "traderName": "Dean Ross",
-            "traderEmail": "rodunehak@ohoeffol.ie",
-            "quantity": 50053
-        },
-        {
-            "id": "45663202-1be1-5993-986a-37f2d761803c",
-            "desk": "D-9611",
-            "commodity": "Cocoa",
-            "traderName": "Alma Patrick",
-            "traderEmail": "te@ruhemjer.gs",
-            "quantity": 33369
-        },
-        {
-            "id": "ab46fa7a-21eb-5e92-80a9-85664a7aeeb6",
-            "desk": "D-8786",
-            "commodity": "Soybean Meal",
-            "traderName": "Shawn Wagner",
-            "traderEmail": "hibgid@ogij.bj",
-            "quantity": 56275
-        },
-        {
-            "id": "691422d3-f520-5e6c-a4b5-568e7c9f8237",
-            "desk": "D-8132",
-            "commodity": "Adzuki bean",
-            "traderName": "Kathryn Reynolds",
-            "traderEmail": "oroluwa@ruled.sm",
-            "quantity": 94541
-        },
-        {
-            "id": "57a429f6-586f-5e16-953a-ddfc4592065e",
-            "desk": "D-7269",
-            "commodity": "Frozen Concentrated Orange Juice",
-            "traderName": "Roxie Underwood",
-            "traderEmail": "bewuve@evfuhap.sr",
-            "quantity": 40375
-        },
-        {
-            "id": "65065abe-4f8c-56a3-8856-85e5bb3b2d8d",
-            "desk": "D-2441",
-            "commodity": "Soybean Oil",
-            "traderName": "Nettie Wells",
-            "traderEmail": "wogec@fanpu.bm",
-            "quantity": 38097
-        },
-        {
-            "id": "bd0a7761-e52c-5f24-8bdc-461d5c1f7f0f",
-            "desk": "D-499",
-            "commodity": "Soybean Meal",
-            "traderName": "Ernest Jennings",
-            "traderEmail": "hadecupu@ujine.ac",
-            "quantity": 60407
-        },
-        {
-            "id": "42798164-6b27-5b5c-93c6-7c3aa5abed47",
-            "desk": "D-8897",
-            "commodity": "Soybeans",
-            "traderName": "Bobby Holmes",
-            "traderEmail": "no@pidinrin.aw",
-            "quantity": 62056
-        },
-        {
-            "id": "462a67ee-808b-5324-8aca-c35bf55df18c",
-            "desk": "D-2597",
-            "commodity": "Corn",
-            "traderName": "Lenora Kelley",
-            "traderEmail": "voz@safiha.pr",
-            "quantity": 3956
-        },
-        {
-            "id": "f6f509ee-12ec-5caa-816c-a59b4ec763a3",
-            "desk": "D-4262",
-            "commodity": "Frozen Concentrated Orange Juice",
-            "traderName": "Bess Sharp",
-            "traderEmail": "pedovdat@kacru.tz",
-            "quantity": 16208
-        },
-        {
-            "id": "92f41300-5e28-5588-b76d-eaede0eb8454",
-            "desk": "D-2229",
-            "commodity": "Cocoa",
-            "traderName": "Corey Stephens",
-            "traderEmail": "vigutohi@jetod.tg",
-            "quantity": 75689
-        },
-        {
-            "id": "cc83ee44-0561-51c2-bfb1-8e721f04bc85",
-            "desk": "D-7538",
-            "commodity": "Rapeseed",
-            "traderName": "Ricardo Miles",
-            "traderEmail": "konsuzez@rugu.tz",
-            "quantity": 95173
-        },
-        {
-            "id": "7114819e-64c5-5443-bec5-17138b68e31f",
-            "desk": "D-6241",
-            "commodity": "Rough Rice",
-            "traderName": "Marc Myers",
-            "traderEmail": "la@jaif.tz",
-            "quantity": 26341
-        }
-    ]
+  "traders": [
+    {
+      "id": "37019703-61db-53ab-add5-06dbce3a01ba",
+      "desk": "D-8439",
+      "commodity": "Cocoa",
+      "traderName": "Victor Mann",
+      "traderEmail": "hiwiret@co.gr",
+      "quantity": 48201
+    },
+    {
+      "id": "5c3f4a05-8e10-546d-82bf-b08685f158ad",
+      "desk": "D-9778",
+      "commodity": "Cocoa",
+      "traderName": "Adele Harrington",
+      "traderEmail": "sot@rub.cl",
+      "quantity": 48933
+    },
+    {
+      "id": "2bb0dda3-7927-5cc7-a545-62d20c1037a1",
+      "desk": "D-6026",
+      "commodity": "Adzuki bean",
+      "traderName": "Dean Ross",
+      "traderEmail": "rodunehak@ohoeffol.ie",
+      "quantity": 50053
+    },
+    {
+      "id": "45663202-1be1-5993-986a-37f2d761803c",
+      "desk": "D-9611",
+      "commodity": "Cocoa",
+      "traderName": "Alma Patrick",
+      "traderEmail": "te@ruhemjer.gs",
+      "quantity": 33369
+    },
+    {
+      "id": "ab46fa7a-21eb-5e92-80a9-85664a7aeeb6",
+      "desk": "D-8786",
+      "commodity": "Soybean Meal",
+      "traderName": "Shawn Wagner",
+      "traderEmail": "hibgid@ogij.bj",
+      "quantity": 56275
+    },
+    {
+      "id": "691422d3-f520-5e6c-a4b5-568e7c9f8237",
+      "desk": "D-8132",
+      "commodity": "Adzuki bean",
+      "traderName": "Kathryn Reynolds",
+      "traderEmail": "oroluwa@ruled.sm",
+      "quantity": 94541
+    },
+    {
+      "id": "57a429f6-586f-5e16-953a-ddfc4592065e",
+      "desk": "D-7269",
+      "commodity": "Frozen Concentrated Orange Juice",
+      "traderName": "Roxie Underwood",
+      "traderEmail": "bewuve@evfuhap.sr",
+      "quantity": 40375
+    },
+    {
+      "id": "65065abe-4f8c-56a3-8856-85e5bb3b2d8d",
+      "desk": "D-2441",
+      "commodity": "Soybean Oil",
+      "traderName": "Nettie Wells",
+      "traderEmail": "wogec@fanpu.bm",
+      "quantity": 38097
+    },
+    {
+      "id": "bd0a7761-e52c-5f24-8bdc-461d5c1f7f0f",
+      "desk": "D-499",
+      "commodity": "Soybean Meal",
+      "traderName": "Ernest Jennings",
+      "traderEmail": "hadecupu@ujine.ac",
+      "quantity": 60407
+    },
+    {
+      "id": "42798164-6b27-5b5c-93c6-7c3aa5abed47",
+      "desk": "D-8897",
+      "commodity": "Soybeans",
+      "traderName": "Bobby Holmes",
+      "traderEmail": "no@pidinrin.aw",
+      "quantity": 62056
+    },
+    {
+      "id": "462a67ee-808b-5324-8aca-c35bf55df18c",
+      "desk": "D-2597",
+      "commodity": "Corn",
+      "traderName": "Lenora Kelley",
+      "traderEmail": "voz@safiha.pr",
+      "quantity": 3956
+    },
+    {
+      "id": "f6f509ee-12ec-5caa-816c-a59b4ec763a3",
+      "desk": "D-4262",
+      "commodity": "Frozen Concentrated Orange Juice",
+      "traderName": "Bess Sharp",
+      "traderEmail": "pedovdat@kacru.tz",
+      "quantity": 16208
+    },
+    {
+      "id": "92f41300-5e28-5588-b76d-eaede0eb8454",
+      "desk": "D-2229",
+      "commodity": "Cocoa",
+      "traderName": "Corey Stephens",
+      "traderEmail": "vigutohi@jetod.tg",
+      "quantity": 75689
+    },
+    {
+      "id": "cc83ee44-0561-51c2-bfb1-8e721f04bc85",
+      "desk": "D-7538",
+      "commodity": "Rapeseed",
+      "traderName": "Ricardo Miles",
+      "traderEmail": "konsuzez@rugu.tz",
+      "quantity": 95173
+    },
+    {
+      "id": "7114819e-64c5-5443-bec5-17138b68e31f",
+      "desk": "D-6241",
+      "commodity": "Rough Rice",
+      "traderName": "Marc Myers",
+      "traderEmail": "la@jaif.tz",
+      "quantity": 26341
+    }
+  ]
 }
-
-
-
