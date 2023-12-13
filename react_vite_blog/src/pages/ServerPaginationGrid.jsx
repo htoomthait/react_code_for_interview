@@ -10,6 +10,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useState } from "react";
+import { useEffect } from "react";
 
 // const SERVER_OPTIONS = {
 //   useCursorPagination: false,
@@ -396,7 +398,9 @@ export default function ServerPaginationGrid() {
         },
         onSuccess: () => {
             setCreateModalOpen(false);
-            queryClient.invalidateQueries(["server_pagination"]);
+            queryClient.removeQueries({ key: ["server_pagination"] });
+
+            // queryClient.invalidateQueries(["server_pagination"]);
         },
         onError: (error) => {
             console.log(error);
@@ -438,7 +442,8 @@ export default function ServerPaginationGrid() {
             });
         },
         onSuccess: () => {
-            queryClient.invalidateQueries(["server_pagination"]);
+            queryClient.removeQueries({ key: ["server_pagination"] });
+            // queryClient.invalidateQueries(["server_pagination"]);
         },
         onError: (error) => {
             console.log(error);
@@ -449,7 +454,9 @@ export default function ServerPaginationGrid() {
         queryKey: ["server_pagination"],
         queryFn: async () => {
             const resp = await axios.get(
-                `http://localhost:3000/traders?_page=${paginationModel.page}&_limit=${paginationModel.pageSize}`
+                `http://localhost:3000/traders?_page=${
+                    paginationModel.page + 1
+                }&_limit=${paginationModel.pageSize}`
             );
 
             if (resp.status !== 200) {
@@ -464,20 +471,30 @@ export default function ServerPaginationGrid() {
         },
     });
 
-    const rows = data?.rows || [];
+    const [rows, setRows] = useState(data?.rows || []);
 
     // Some API clients return undefined while loading
     // Following lines are here to prevent `rowCountState` from being undefined during the loading
     const [rowCountState, setRowCountState] = React.useState(
         data?.totalRowCount || 0
     );
+
+    useEffect(() => {
+        if (!error) {
+            setRows(data?.rows || []);
+            console.log(data?.rows);
+        }
+    }, [data?.rows, setRows, error]);
+
     React.useEffect(() => {
-        setRowCountState((prevRowCountState) =>
-            data?.totalRowCount !== undefined
-                ? data?.totalRowCount
-                : prevRowCountState
-        );
-    }, [data?.totalRowCount, setRowCountState]);
+        if (!error) {
+            setRowCountState((prevRowCountState) =>
+                data?.totalRowCount !== undefined
+                    ? data?.totalRowCount
+                    : prevRowCountState
+            );
+        }
+    }, [data?.totalRowCount, setRowCountState, error]);
 
     // const queryClient = useQueryClient();
 
@@ -596,6 +613,7 @@ export default function ServerPaginationGrid() {
                         queryClient.removeQueries({
                             queryKey: ["server_pagination"],
                         });
+                        // queryClient.invalidateQueries(["server_pagination"]);
                     }}
                 />
             )}
