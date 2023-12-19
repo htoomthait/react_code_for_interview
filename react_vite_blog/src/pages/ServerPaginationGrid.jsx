@@ -1,9 +1,9 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { createFakeServer } from "@mui/x-data-grid-generator";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Button from "@mui/material/Button";
+import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -373,6 +373,7 @@ export default function ServerPaginationGrid() {
     const [selectedRows, setSelectedRows] = React.useState([]);
 
     const [formError, setFormError] = React.useState(formErrorInitialState);
+    const [fetchedRow, setFetchedRow] = React.useState({});
     const queryClient = useQueryClient();
 
     //   console.log(formData);
@@ -381,6 +382,15 @@ export default function ServerPaginationGrid() {
         setFormData({
             ...formData,
             [e.target.id]: e.target.value,
+        });
+
+        setFormErrorStatus(e);
+    };
+
+    const setFormErrorStatus = (e) => {
+        setFormError({
+            ...formError,
+            [e.target.id]: e.target.value === "",
         });
     };
 
@@ -471,6 +481,23 @@ export default function ServerPaginationGrid() {
         },
     });
 
+    const fetchRow = useMutation({
+        mutationFn: async () => {
+            const resp = await axios.get(
+                `http://localhost:3000/traders/${selectedRows[0]}`
+            );
+
+            if (resp.status !== 200) {
+                throw new Error("Error fetching data");
+            }
+            const data = resp.data;
+            // console.log(data);
+            setFetchedRow(data);
+
+            // return data;
+        },
+    });
+
     const [rows, setRows] = useState(data?.rows || []);
 
     // Some API clients return undefined while loading
@@ -498,15 +525,41 @@ export default function ServerPaginationGrid() {
 
     // const queryClient = useQueryClient();
 
-    return (
-        <div style={{ minHeight: 400, width: "100%" }}>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Create new record
-            </Button>
+    const handleEditSelectedRow = () => {
+        console.log(selectedRows[0]);
+        fetchRow.mutate();
+        // console.log(fetchedRow);
+    };
 
-            <Button variant="outlined" onClick={handleDeleteSelectedRows}>
-                Delete selected record
-            </Button>
+    useEffect(() => {
+        console.log(fetchedRow);
+    }, [fetchedRow]);
+
+    return (
+        <Box
+            sx={{
+                minHeight: 400,
+                width: "100%",
+            }}
+        >
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                }}
+            >
+                <Button variant="outlined" onClick={handleClickOpen}>
+                    Create new record
+                </Button>
+
+                <Button variant="outlined" onClick={handleDeleteSelectedRows}>
+                    Delete selected record
+                </Button>
+
+                <Button variant="outlined" onClick={handleEditSelectedRow}>
+                    Edit selected record
+                </Button>
+            </Box>
 
             <Dialog open={createModalOpen} onClose={handleClose}>
                 <form onSubmit={handleOnSubmit}>
@@ -582,6 +635,7 @@ export default function ServerPaginationGrid() {
                     </DialogActions>
                 </form>
             </Dialog>
+
             {error ? (
                 <div> {error.message} </div>
             ) : (
@@ -617,7 +671,7 @@ export default function ServerPaginationGrid() {
                     }}
                 />
             )}
-        </div>
+        </Box>
         // <div> abc </div>
     );
 }
