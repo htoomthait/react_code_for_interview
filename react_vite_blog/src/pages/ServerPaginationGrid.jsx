@@ -4,348 +4,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
 import { useEffect } from "react";
+import traderColumns from "../components/data_grid_columns/traderColumns";
+import TraderCreateDialog from "../components/create_dialogs/TraderCreateDialog";
+import TraderEditDialog from "../components/edit_dialogs/TraderEditDialog";
 
-// const SERVER_OPTIONS = {
-//   useCursorPagination: false,
-// };
-
-// const { useQuery, ...data } = createFakeServer({}, SERVER_OPTIONS);
-
-const columns = {
-    columns: [
-        {
-            field: "id",
-            hide: true,
-        },
-        {
-            field: "desk",
-            headerName: "Desk",
-            width: 110,
-        },
-        {
-            field: "commodity",
-            headerName: "Commodity",
-            width: 180,
-            editable: false,
-        },
-        {
-            field: "traderName",
-            headerName: "Trader Name",
-            width: 120,
-            editable: false,
-        },
-        {
-            field: "traderEmail",
-            headerName: "Trader Email",
-            width: 150,
-            editable: false,
-        },
-        {
-            field: "quantity",
-            headerName: "Quantity",
-            type: "number",
-            width: 140,
-            editable: false,
-        },
-    ],
-    columnsWithDefaultColDef: [
-        {
-            width: 100,
-            minWidth: 50,
-            maxWidth: null,
-            hideable: true,
-            sortable: true,
-            resizable: true,
-            filterable: true,
-            groupable: true,
-            pinnable: true,
-            aggregable: true,
-            editable: false,
-            type: "string",
-            align: "left",
-            filterOperators: [
-                {
-                    value: "contains",
-                },
-                {
-                    value: "equals",
-                },
-                {
-                    value: "startsWith",
-                },
-                {
-                    value: "endsWith",
-                },
-                {
-                    value: "isEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isNotEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isAnyOf",
-                },
-            ],
-            field: "id",
-            hide: true,
-        },
-        {
-            width: 110,
-            minWidth: 50,
-            maxWidth: null,
-            hideable: true,
-            sortable: true,
-            resizable: true,
-            filterable: true,
-            groupable: true,
-            pinnable: true,
-            aggregable: true,
-            editable: false,
-            type: "string",
-            align: "left",
-            filterOperators: [
-                {
-                    value: "contains",
-                },
-                {
-                    value: "equals",
-                },
-                {
-                    value: "startsWith",
-                },
-                {
-                    value: "endsWith",
-                },
-                {
-                    value: "isEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isNotEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isAnyOf",
-                },
-            ],
-            field: "desk",
-            headerName: "Desk",
-        },
-        {
-            width: 180,
-            minWidth: 50,
-            maxWidth: null,
-            hideable: true,
-            sortable: true,
-            resizable: true,
-            filterable: true,
-            groupable: true,
-            pinnable: true,
-            aggregable: true,
-            editable: false,
-            type: "string",
-            align: "left",
-            filterOperators: [
-                {
-                    value: "contains",
-                },
-                {
-                    value: "equals",
-                },
-                {
-                    value: "startsWith",
-                },
-                {
-                    value: "endsWith",
-                },
-                {
-                    value: "isEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isNotEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isAnyOf",
-                },
-            ],
-            field: "commodity",
-            headerName: "Commodity",
-        },
-        {
-            width: 120,
-            minWidth: 50,
-            maxWidth: null,
-            hideable: true,
-            sortable: true,
-            resizable: true,
-            filterable: true,
-            groupable: true,
-            pinnable: true,
-            aggregable: true,
-            editable: false,
-            type: "string",
-            align: "left",
-            filterOperators: [
-                {
-                    value: "contains",
-                },
-                {
-                    value: "equals",
-                },
-                {
-                    value: "startsWith",
-                },
-                {
-                    value: "endsWith",
-                },
-                {
-                    value: "isEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isNotEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isAnyOf",
-                },
-            ],
-            field: "traderName",
-            headerName: "Trader Name",
-        },
-        {
-            width: 150,
-            minWidth: 50,
-            maxWidth: null,
-            hideable: true,
-            sortable: true,
-            resizable: true,
-            filterable: true,
-            groupable: true,
-            pinnable: true,
-            aggregable: true,
-            editable: false,
-            type: "string",
-            align: "left",
-            filterOperators: [
-                {
-                    value: "contains",
-                },
-                {
-                    value: "equals",
-                },
-                {
-                    value: "startsWith",
-                },
-                {
-                    value: "endsWith",
-                },
-                {
-                    value: "isEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isNotEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isAnyOf",
-                },
-            ],
-            field: "traderEmail",
-            headerName: "Trader Email",
-        },
-        {
-            width: 140,
-            minWidth: 50,
-            maxWidth: null,
-            hideable: true,
-            sortable: true,
-            resizable: true,
-            filterable: true,
-            groupable: true,
-            pinnable: true,
-            aggregable: true,
-            editable: false,
-            type: "number",
-            align: "right",
-            filterOperators: [
-                {
-                    value: "=",
-                    InputComponentProps: {
-                        type: "number",
-                    },
-                },
-                {
-                    value: "!=",
-                    InputComponentProps: {
-                        type: "number",
-                    },
-                },
-                {
-                    value: ">",
-                    InputComponentProps: {
-                        type: "number",
-                    },
-                },
-                {
-                    value: ">=",
-                    InputComponentProps: {
-                        type: "number",
-                    },
-                },
-                {
-                    value: "<",
-                    InputComponentProps: {
-                        type: "number",
-                    },
-                },
-                {
-                    value: "<=",
-                    InputComponentProps: {
-                        type: "number",
-                    },
-                },
-                {
-                    value: "isEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isNotEmpty",
-                    requiresFilterValue: false,
-                },
-                {
-                    value: "isAnyOf",
-                    InputComponentProps: {
-                        type: "number",
-                    },
-                },
-            ],
-            headerAlign: "right",
-            field: "quantity",
-            headerName: "Quantity",
-        },
-    ],
-    initialState: {
-        columns: {
-            columnVisibilityModel: {
-                id: false,
-            },
-        },
-    },
-};
+const columns = traderColumns;
 
 export default function ServerPaginationGrid() {
     const [paginationModel, setPaginationModel] = React.useState({
@@ -369,7 +34,10 @@ export default function ServerPaginationGrid() {
     };
 
     const [createModalOpen, setCreateModalOpen] = React.useState(false);
+    const [editModalOpen, setEditModalOpen] = React.useState(false);
     const [formData, setFormData] = React.useState(formDataInitialState);
+    const [editFormData, setEditFormData] =
+        React.useState(formDataInitialState);
     const [selectedRows, setSelectedRows] = React.useState([]);
 
     const [formError, setFormError] = React.useState(formErrorInitialState);
@@ -418,11 +86,44 @@ export default function ServerPaginationGrid() {
         },
     });
 
+    const updateApiCall = useMutation({
+        mutationFn: async () => {
+            const resp = await axios.put(
+                `http://localhost:3000/traders/${selectedRows[0]}`,
+                {
+                    ...editFormData,
+                }
+            );
+
+            if (resp.status !== 200) {
+                throw new Error("Error updating data");
+            }
+
+            return resp.data;
+        },
+        onSuccess: () => {
+            setEditModalOpen(false);
+            queryClient.removeQueries({ key: ["server_pagination"] });
+
+            // queryClient.invalidateQueries(["server_pagination"]);
+        },
+        onError: (error) => {
+            console.log(error);
+            setEditModalOpen(false);
+        },
+    });
+
     const handleOnSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
 
         createApiCall.mutate();
+    };
+
+    const handleOnSubmitUpdate = (formDataFromEditDialog) => {
+        setEditFormData(formDataFromEditDialog);
+
+        updateApiCall.mutate();
     };
 
     const handleClickOpen = () => {
@@ -432,6 +133,10 @@ export default function ServerPaginationGrid() {
 
     const handleClose = () => {
         setCreateModalOpen(false);
+    };
+
+    const handleEditClose = () => {
+        setEditModalOpen(false);
     };
 
     const handleDeleteSelectedRows = () => {
@@ -528,6 +233,7 @@ export default function ServerPaginationGrid() {
     const handleEditSelectedRow = () => {
         console.log(selectedRows[0]);
         fetchRow.mutate();
+        setEditModalOpen(true);
         // console.log(fetchedRow);
     };
 
@@ -561,80 +267,19 @@ export default function ServerPaginationGrid() {
                 </Button>
             </Box>
 
-            <Dialog open={createModalOpen} onClose={handleClose}>
-                <form onSubmit={handleOnSubmit}>
-                    <DialogTitle>Create New Trader</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            To create new trader record, please enter the proper
-                            form data here.
-                        </DialogContentText>
+            <TraderCreateDialog
+                createModalOpen={createModalOpen}
+                handleClose={handleClose}
+                handleFormChange={handleFormChange}
+                handleOnSubmit={handleOnSubmit}
+            />
 
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="desk"
-                            label="Desk"
-                            type="text"
-                            placeholder="e.g. D-8329"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleFormChange}
-                        />
-
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="commodity"
-                            label="Commodity"
-                            type="text"
-                            placeholder="e.g. Cocoa"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleFormChange}
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="traderName"
-                            label="Trader Name"
-                            type="text"
-                            placeholder="e.g. John Doe"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleFormChange}
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="traderEmail"
-                            label="Trader Email"
-                            type="email"
-                            placeholder="e.g. johndoe@xyz.com"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleFormChange}
-                        />
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="quantity"
-                            label="Quantity"
-                            type="number"
-                            placeholder="e.g. 3210"
-                            fullWidth
-                            variant="standard"
-                            onChange={handleFormChange}
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleClose} type="submit">
-                            Create
-                        </Button>
-                    </DialogActions>
-                </form>
-            </Dialog>
+            <TraderEditDialog
+                editModalOpen={editModalOpen}
+                handleEditClose={handleEditClose}
+                handleOnSubmitUpdate={handleOnSubmitUpdate}
+                fetchedRow={fetchedRow}
+            />
 
             {error ? (
                 <div> {error.message} </div>
