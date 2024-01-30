@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1706604949357" clover="3.2.0">
+  <project timestamp="1706604949358" name="All files">
+    <metrics statements="14" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="9" coveredmethods="8" elements="23" coveredelements="20" complexity="0" loc="14" ncloc="14" packages="1" files="3" classes="3"/>
+    <file name="App.jsx" path="/home/hmthait/react-projects/react-vite-jest/src/App.jsx">
+      <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="7" count="0" type="stmt"/>
+    </file>
+    <file name="Counter.jsx" path="/home/hmthait/react-projects/react-vite-jest/src/Counter.jsx">
+      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="8" coveredmethods="8"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="5" count="12" type="stmt"/>
+      <line num="7" count="12" type="stmt"/>
+      <line num="8" count="2" type="stmt"/>
+      <line num="11" count="12" type="stmt"/>
+      <line num="12" count="2" type="stmt"/>
+      <line num="15" count="12" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="19" count="12" type="stmt"/>
+      <line num="20" count="2" type="stmt"/>
+      <line num="22" count="12" type="stmt"/>
+      <line num="47" count="1" type="stmt"/>
+    </file>
+    <file name="main.jsx" path="/home/hmthait/react-projects/react-vite-jest/src/main.jsx">
+      <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="6" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>
