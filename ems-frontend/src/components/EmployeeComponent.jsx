@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { addEmployee } from "../services/EmployeeService";
 
-const AddEmployeeComponent = () => {
+const EmployeeComponent = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -25,11 +26,10 @@ const AddEmployeeComponent = () => {
             email: email,
         };
 
-        console.log(dataToSubmit);
-
-        /*const response = await addEmployee(dataToSubmit);
-        console.log(response);*/
+        const response = await addEmployee(dataToSubmit);
+        console.log(response);
     };
+
     return (
         <>
             <div className="container">
@@ -105,4 +105,4 @@ const AddEmployeeComponent = () => {
     );
 };
 
-export default AddEmployeeComponent;
+export default EmployeeComponent;
