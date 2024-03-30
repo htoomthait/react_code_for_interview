@@ -40,8 +40,8 @@ const AddEmployeeComponent = () => {
     return (
         <>
             <div className="container">
-                <div className="row">
-                    <div className="card">
+                <div className="row d-flex justify-content-center">
+                    <div className="card col-5">
                         <h2 className="text-center">Add Employee</h2>
                         <div className="card-body">
                             <form method="post" onSubmit={handleOnSubmit}>
