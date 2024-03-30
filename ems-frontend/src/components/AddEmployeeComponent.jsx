@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { addEmployee } from "../services/EmployeeService";
+import { useNavigate } from "react-router-dom";
 
 const AddEmployeeComponent = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+
+    const navigator = useNavigate();
 
     const handleFirstName = (e) => {
         setFirstName(e.target.value);
@@ -27,8 +31,11 @@ const AddEmployeeComponent = () => {
 
         console.log(dataToSubmit);
 
-        /*const response = await addEmployee(dataToSubmit);
-        console.log(response);*/
+        const response = await addEmployee(dataToSubmit);
+        console.log(response);
+        if (response.data.status == "success") {
+            navigator("/");
+        }
     };
     return (
         <>
@@ -94,6 +101,15 @@ const AddEmployeeComponent = () => {
                                         className="btn btn-primary"
                                     >
                                         Save
+                                    </button>
+                                    &nbsp;
+                                    <button
+                                        className="btn btn-secondary ml-4"
+                                        onClick={() => {
+                                            navigator("/");
+                                        }}
+                                    >
+                                        Back
                                     </button>
                                 </div>
                             </form>

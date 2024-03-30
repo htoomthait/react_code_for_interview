@@ -6,3 +6,8 @@ export const listEmployees = () => {
     const response = axios.get(REST_API_BASE_URL);
     return response;
 };
+
+export const addEmployee = async (data) => {
+    const response = await axios.post(REST_API_BASE_URL, data);
+    return response;
+};
