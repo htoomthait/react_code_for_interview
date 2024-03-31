@@ -1,5 +1,9 @@
-import { useState } from "react";
-import { addEmployee } from "../services/EmployeeService";
+import { useState, useEffect, useCallback } from "react";
+import {
+    addEmployee,
+    getEmployeeById,
+    updateEmployeeById,
+} from "../services/EmployeeService";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -10,6 +14,35 @@ const EmployeeComponent = () => {
     const [clickedSubmit, setClickSubmit] = useState(false);
 
     const { id } = useParams();
+
+    const fetchEmployeeById = useCallback(async (id) => {
+        try {
+            const response = await getEmployeeById(id);
+            const employee = response.data.data;
+            console.log(employee);
+
+            if (employee) {
+                setFirstName(employee.firstName);
+                setLastName(employee.lastName);
+                setEmail(employee.email);
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: "error",
+                title: "Fetch Employee By Id",
+                text:
+                    "Cannot fetch employee by given id  : " +
+                    error.response.data.message,
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        if (id) {
+            fetchEmployeeById(id);
+        }
+    }, [id, fetchEmployeeById]);
 
     const [errors, setErrors] = useState({
         firstName: "",
@@ -81,31 +114,60 @@ const EmployeeComponent = () => {
         setClickSubmit(true);
 
         if (validateForm()) {
-            const employeeToRecord = {
+            const employeeToSave = {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
             };
-            try {
-                const response = await addEmployee(employeeToRecord);
-                console.log(response);
-                Swal.fire({
-                    icon: "success",
-                    title: "Employee Adding",
-                    text: "Your employee has been recorded successfully!",
-                    confirmButtonText: "OK",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        navigator("/");
-                    }
-                });
-            } catch (error) {
-                console.log(error.response.data.message);
-                Swal.fire({
-                    icon: "error",
-                    title: "Employee Adding",
-                    text: error.response.data.message,
-                });
+
+            if (!id) {
+                try {
+                    const response = await addEmployee(employeeToSave);
+                    console.log(response);
+                    Swal.fire({
+                        icon: "success",
+                        title: "Employee Adding",
+                        text: "Your employee has been recorded successfully!",
+                        confirmButtonText: "OK",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            navigator("/");
+                        }
+                    });
+                } catch (error) {
+                    console.log(error.response.data.message);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Employee Adding",
+                        text: error.response.data.message,
+                    });
+                }
+            } else {
+                try {
+                    const updateResp = await updateEmployeeById(
+                        id,
+                        employeeToSave
+                    );
+                    console.log(updateResp);
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Employee Update",
+                        text: "Your employee has been updated successfully!",
+                        confirmButtonText: "OK",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            navigator("/");
+                        }
+                    });
+                } catch (error) {
+                    console.log(error.response.data.message);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Employee Update",
+                        text: error.response.data.message,
+                    });
+                }
             }
         }
     };
