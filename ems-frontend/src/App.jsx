@@ -4,7 +4,7 @@ import FooterComponent from "./components/FooterComponent";
 import HeaderComponent from "./components/HeaderComponent";
 import ListEmployeeComponent from "./components/ListEmployeeComponent";
 import { BrowserRouter, Routes } from "react-router-dom";
-import AddEmployeeComponent from "./components/AddEmployeeComponent";
+import EmployeeComponent from "./components/EmployeeComponent";
 
 function App() {
     return (
@@ -19,7 +19,11 @@ function App() {
                     ></Route>
                     <Route
                         path="/add-employee"
-                        element={<AddEmployeeComponent />}
+                        element={<EmployeeComponent />}
+                    ></Route>
+                    <Route
+                        path="/edit-employee/:id"
+                        element={<EmployeeComponent />}
                     ></Route>
                 </Routes>
 

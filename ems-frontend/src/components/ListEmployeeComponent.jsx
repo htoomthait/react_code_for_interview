@@ -19,8 +19,12 @@ const ListEmployeeComponent = () => {
         navigator("/add-employee");
     };
 
+    const updateEmployee = (id) => {
+        navigator("/edit-employee/" + id);
+    };
+
     return (
-        <div className="container">
+        <div className="container min-vh-80">
             <h2 className="text-center"> List of Employee</h2>
             <button
                 type="button"
@@ -36,6 +40,7 @@ const ListEmployeeComponent = () => {
                         <th scope="col">Employee First Name</th>
                         <th scope="col">Employee Last Name</th>
                         <th scope="col">Employee Email Id</th>
+                        <th scope="col">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +50,18 @@ const ListEmployeeComponent = () => {
                             <td>{employee.firstName}</td>
                             <td>{employee.lastName}</td>
                             <td>{employee.email}</td>
+                            <td>
+                                <button
+                                    className="btn btn-info"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        updateEmployee(employee.id);
+                                    }}
+                                >
+                                    {" "}
+                                    Update
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
