@@ -7,49 +7,105 @@ const AddEmployeeComponent = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [clickedSubmit, setClickSubmit] = useState(false);
+
+    const [errors, setErrors] = useState({
+        clickedSubmit: false,
+        firstName: "",
+        lastname: "",
+        email: "",
+    });
 
     const navigator = useNavigate();
 
     const handleFirstName = (e) => {
         setFirstName(e.target.value);
+        if (clickedSubmit) {
+            validateForm();
+        }
     };
 
     const handleLastName = (e) => {
         setLastName(e.target.value);
+        if (clickedSubmit) {
+            validateForm();
+        }
     };
 
     const handleEmail = (e) => {
         setEmail(e.target.value);
+        if (clickedSubmit) {
+            validateForm();
+        }
+    };
+
+    const validateForm = () => {
+        let valid = true;
+        const validRegex =
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+        const errorsCopy = { ...errors };
+
+        if (firstName.trim()) {
+            errorsCopy.firstName = "";
+        } else {
+            errorsCopy.firstName = "First name is required";
+            valid = false;
+        }
+
+        if (lastName.trim()) {
+            errorsCopy.lastName = "";
+        } else {
+            errorsCopy.lastName = "Last name is required";
+            valid = false;
+        }
+
+        if (email.trim()) {
+            errorsCopy.email = "";
+
+            if (!email.match(validRegex)) {
+                errorsCopy.email = "invalid email format";
+                valid = false;
+            }
+        } else {
+            errorsCopy.email = "email is required";
+            valid = false;
+        }
+        setErrors(errorsCopy);
+        return valid;
     };
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        const dataToSubmit = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-        };
+        setClickSubmit(true);
 
-        try {
-            const response = await addEmployee(dataToSubmit);
-            console.log(response);
-            Swal.fire({
-                icon: "success",
-                show: true,
-                title: "Employee Adding",
-                text: "Your employee has been recorded successfully!",
-                onConfirm: () => {
-                    // navigator("/");
-                },
-            });
-        } catch (error) {
-            console.log(error.response.data.message);
-            Swal.fire({
-                icon: "error",
-                show: true,
-                title: "Employee Adding",
-                text: error.response.data.message,
-            });
+        if (validateForm()) {
+            const employeeToRecord = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+            };
+            try {
+                const response = await addEmployee(employeeToRecord);
+                console.log(response);
+                Swal.fire({
+                    icon: "success",
+                    title: "Employee Adding",
+                    text: "Your employee has been recorded successfully!",
+                    confirmButtonText: "OK",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigator("/");
+                    }
+                });
+            } catch (error) {
+                console.log(error.response.data.message);
+                Swal.fire({
+                    icon: "error",
+                    title: "Employee Adding",
+                    text: error.response.data.message,
+                });
+            }
         }
     };
     return (
@@ -68,13 +124,20 @@ const AddEmployeeComponent = () => {
                                         First Name :
                                     </label>
                                     <input
-                                        className="form-control"
+                                        className={`form-control mb-1 ${
+                                            errors.firstName ? "is-invalid" : ""
+                                        }`}
                                         type="text"
                                         id="firstName"
                                         name="firstName"
                                         value={firstName}
                                         onChange={handleFirstName}
                                     />
+                                    {errors.firstName && (
+                                        <span className={`invalid-feedback`}>
+                                            {errors.firstName}
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div className="form-group mb-2">
@@ -85,13 +148,20 @@ const AddEmployeeComponent = () => {
                                         Last Name :
                                     </label>
                                     <input
-                                        className="form-control"
+                                        className={`form-control mb-1 ${
+                                            errors.lastName ? "is-invalid" : ""
+                                        }`}
                                         type="text"
                                         id="lastName"
                                         name="lastName"
                                         value={lastName}
                                         onChange={handleLastName}
                                     />
+                                    {errors.lastName && (
+                                        <span className={`text-danger fs-6`}>
+                                            {errors.lastName}
+                                        </span>
+                                    )}
                                 </div>
 
                                 <div className="form-group mb-2">
@@ -102,13 +172,20 @@ const AddEmployeeComponent = () => {
                                         Email :
                                     </label>
                                     <input
-                                        className="form-control"
+                                        className={`form-control mb-1 ${
+                                            errors.email ? "is-invalid" : ""
+                                        }`}
                                         type="text"
                                         id="email"
                                         name="email"
                                         value={email}
                                         onChange={handleEmail}
                                     />
+                                    {errors.email && (
+                                        <span className={`text-danger fs-6`}>
+                                            {errors.email}
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="form-group mb-2">
                                     <button
