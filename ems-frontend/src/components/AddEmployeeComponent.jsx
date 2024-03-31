@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { addEmployee } from "../services/EmployeeService";
 import { useNavigate } from "react-router-dom";
-import SweetAlert2 from "react-sweetalert2";
+import Swal from "sweetalert2";
 
 const AddEmployeeComponent = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
-    const [swalProps, setSwalProps] = useState({});
 
     const navigator = useNavigate();
 
@@ -31,19 +30,26 @@ const AddEmployeeComponent = () => {
             email: email,
         };
 
-        console.log(dataToSubmit);
-
-        const response = await addEmployee(dataToSubmit);
-        console.log(response);
-        if (response.data.status == "success") {
-            setSwalProps({
+        try {
+            const response = await addEmployee(dataToSubmit);
+            console.log(response);
+            Swal.fire({
                 icon: "success",
                 show: true,
                 title: "Employee Adding",
                 text: "Your employee has been recorded successfully!",
+                onConfirm: () => {
+                    // navigator("/");
+                },
             });
-        } else {
-            console.log("cannot post : general error");
+        } catch (error) {
+            console.log(error.response.data.message);
+            Swal.fire({
+                icon: "error",
+                show: true,
+                title: "Employee Adding",
+                text: error.response.data.message,
+            });
         }
     };
     return (
@@ -125,12 +131,6 @@ const AddEmployeeComponent = () => {
                         </div>
                     </div>
                 </div>
-                <SweetAlert2
-                    {...swalProps}
-                    didClose={() => {
-                        navigator("/");
-                    }}
-                />
             </div>
         </>
     );
