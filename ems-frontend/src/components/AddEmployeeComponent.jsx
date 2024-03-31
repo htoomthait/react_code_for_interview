@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { addEmployee } from "../services/EmployeeService";
 import { useNavigate } from "react-router-dom";
+import SweetAlert2 from "react-sweetalert2";
 
 const AddEmployeeComponent = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+    const [swalProps, setSwalProps] = useState({});
 
     const navigator = useNavigate();
 
@@ -34,14 +36,21 @@ const AddEmployeeComponent = () => {
         const response = await addEmployee(dataToSubmit);
         console.log(response);
         if (response.data.status == "success") {
-            navigator("/");
+            setSwalProps({
+                icon: "success",
+                show: true,
+                title: "Employee Adding",
+                text: "Your employee has been recorded successfully!",
+            });
+        } else {
+            console.log("cannot post : general error");
         }
     };
     return (
         <>
             <div className="container">
                 <div className="row d-flex justify-content-center">
-                    <div className="card col-5">
+                    <div className="card col-5 mt-4">
                         <h2 className="text-center">Add Employee</h2>
                         <div className="card-body">
                             <form method="post" onSubmit={handleOnSubmit}>
@@ -116,6 +125,12 @@ const AddEmployeeComponent = () => {
                         </div>
                     </div>
                 </div>
+                <SweetAlert2
+                    {...swalProps}
+                    didClose={() => {
+                        navigator("/");
+                    }}
+                />
             </div>
         </>
     );
