@@ -1,8 +1,30 @@
-# React + Vite
+# Employee Management System (EMS) with React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is demostration of Employees management system with basic feature of CRUD.
 
-Currently, two official plugins are available:
+Used technologies are as follows.
+- datatable
+- dot env
+-  bootstrap css framework
+-  vite
+-  React.js
+-  react query
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Dev Running
+
+Run the following command to run at local environment.
+
+If packages aren't installed,run the following. If installed, skip this.
+
+`pnpm install`
+
+To run at local.
+
+
+`pnpm run dev`
+
+
+
+## Referenced
+- The main reference youtube link
+
