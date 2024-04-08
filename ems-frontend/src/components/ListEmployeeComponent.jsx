@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
-import { deleteById, listEmployees } from "../services/EmployeeService";
+import { deleteById, asyncListEmployees  } from "../services/EmployeeService";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useQuery } from "react-query";
 
 const ListEmployeeComponent = () => {
     const [employees, setEmployees] = useState([]);
     const navigator = useNavigate();
 
-    const fetchEmployee = () => {
+    /*const fetchEmployee = () => {
         listEmployees()
             .then((response) => {
                 console.log(response.data);
                 setEmployees(response.data.data);
             })
             .catch((error) => console.log(error));
-    };
+    };*/
 
-    useEffect(() => {
-        fetchEmployee();
+    const {data, status, isLoading} = useQuery('listEmployee', asyncListEmployees );
+
+usefect(() => {
+        setEmployees(data);
     }, []);
 
     const addNewEmployee = () => {
@@ -28,7 +31,11 @@ const ListEmployeeComponent = () => {
         navigator("/edit-employee/" + id);
     };
 
-    return (
+ if(isLoading){
+return "<h1> Loading Employees' data </h1>";
+
+}
+     return (
         <div className="container min-vh-80">
             <h2 className="text-center"> List of Employee</h2>
             <button
