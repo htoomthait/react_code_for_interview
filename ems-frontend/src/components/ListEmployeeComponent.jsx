@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { deleteById, asyncListEmployees  } from "../services/EmployeeService";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const ListEmployeeComponent = () => {
     const [employees, setEmployees] = useState([]);
