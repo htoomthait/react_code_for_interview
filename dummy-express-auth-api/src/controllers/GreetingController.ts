@@ -15,12 +15,38 @@ const getlandingResponse = (req: Request, resp: Response) => {
 
 const sampleNameAndAge = (req: Request, res: Response) => {
     const { name, age } = req.body;
+    let isValidRequest = true;
+    let respErrorMessage = [];
 
-    res
-        .status(200)
-        .json({
-            message: `Hello, ${name}! You are ${age} year old`,
-        });
+    if (name == "" || name == undefined) {
+        const nameError = { name: "name is missing" };
+        isValidRequest = false;
+        respErrorMessage.push(nameError);
+    }
+
+    if (age == "" || age == undefined) {
+        const ageError = { age: "age is missing" };
+        isValidRequest = false;
+        respErrorMessage.push(ageError);
+    }
+
+    if (isValidRequest) {
+        res
+            .status(201)
+            .json({
+                message: `Hello, ${name}! You are ${age} year old`,
+            });
+    }
+    else {
+        res
+            .status(422)
+            .json({
+                message: `invalid request`,
+                errorMsg: respErrorMessage
+            });
+    }
+
+
 
 
 }
