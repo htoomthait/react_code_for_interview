@@ -1,0 +1,7 @@
+
+
+
+const authenticate = () => { }
+
+
+export { authenticate }
