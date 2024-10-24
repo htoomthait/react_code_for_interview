@@ -3,9 +3,24 @@ import express from 'express';
 import { getlandingResponse, sampleNameAndAge } from './controllers/GreetingController';
 import { authenticate } from './controllers/AuthController';
 
+import cors from 'cors';
+
 
 // Initialize  the express app
 const app = express();
+
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
+
+app.use(cors({
+    origin: (origin: any, callback: any) => {
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}));
+
 
 
 // Middleware to parse JSON request bodies
