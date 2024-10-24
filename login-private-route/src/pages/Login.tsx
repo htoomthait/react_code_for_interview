@@ -17,7 +17,7 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
         console.log(username, password);
 
         // Dummy API call for login. Replace with your API endpoint.
-        const response = await fetch('https://localhost:8000/api/login', {
+        const response = await fetch('http://localhost:8000/api/authenticate', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
             // Assuming the response contains an access_token
             localStorage.setItem('access_token', data.access_token);
             setIsAuthenticated(true);
-            navigate('/home');
+            navigate('/admin');
           } else {
             alert('Login failed, please try again.');
           }
