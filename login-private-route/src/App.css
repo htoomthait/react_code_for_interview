@@ -1,0 +1,11 @@
+
+.main{
+  width: 90%;
+  border : 1px solid #000;
+  margin: 0 auto;
+  
+
+}
+body{
+  @apply bg-gray-300;
+}

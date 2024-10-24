@@ -1,0 +1,9 @@
+.mainNavBlock{
+    @apply 
+    mt-3
+    text-blue-500 
+    underline 
+    hover:text-blue-400
+    flex
+    gap-2;
+}
