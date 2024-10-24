@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const AdminPanelHome = () => {
+const AdminPanelHome : React.FC = () => {
     const handleLogout = () => {
         const navigate = useNavigate();
         localStorage.removeItem('acces_token');
@@ -13,7 +13,7 @@ const AdminPanelHome = () => {
 
   return (
     <div>
-        <h2> Home Page</h2>
+        <h2 className="font-bold text-xl"> Home Page</h2>
         <p>Welcome to the home page ! You are logged in.</p>
         <button onClick={handleLogout}>Logout</button>
     </div>
