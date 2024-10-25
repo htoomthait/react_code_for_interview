@@ -8,12 +8,13 @@ import { BrowserRouter as Router,
 import AdminPanelHome from './pages/AdminPanelHome';
 import LandingPage from './pages/LandingPage';
 import { useAuth } from './stores/AuthProvider';
+import { useEffect } from 'react';
 
 
 const App = ( ) =>{
 
+  const { isAuthenticated, currentPrvateURI } = useAuth();
   
-
   
   
   
@@ -62,10 +63,12 @@ interface PrivateRouteProps {
 
 const PrivateRoute : React.FC<PrivateRouteProps>= ({component }) => {
 
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, currentPrvateURI } = useAuth();
+
+
   
-    return isAuthenticated ? component : <Navigate to="/login" />
-  
+    
+   return isAuthenticated == true ? component : <Navigate to="/login" replace/>
 
       
     

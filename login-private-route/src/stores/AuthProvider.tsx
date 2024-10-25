@@ -24,7 +24,7 @@ const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [currentPrvateURI, setCurrentPrvateURI] = useState("/admin");
+    const [currentPrvateURI, setCurrentPrvateURI] = useState("");
 
     useEffect(() => {
         const token = localStorage.getItem('access_token');
@@ -32,6 +32,15 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
           setIsAuthenticated(true);
         }
       }, [setIsAuthenticated]);
+
+      useEffect(() => {
+        const currentPrivateUri = localStorage.getItem('current_privae_uri');
+        if(currentPrivateUri){
+            setCurrentPrvateURI(currentPrivateUri);
+        }
+        
+
+      }, [setCurrentPrvateURI])
 
    
 
@@ -48,6 +57,7 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
       };
 
       const memorizeCurrentPrivateURI = (uri : string) => {
+        localStorage.setItem('current_privae_uri', uri)
         setCurrentPrvateURI(uri);
       }
 

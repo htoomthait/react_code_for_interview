@@ -1,17 +1,27 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../stores/AuthProvider';
+import AdminPanelHeader from '../components/AdminPanelHeader';
+import { BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  Link
+    } from 'react-router-dom';
+import AdminPanelUser from './AdminPanelUser';
+import AdminPanelHomContent from './AdminPanelHomContent';
+
 
 const AdminPanelHome : React.FC = () => {
   const navigate = useNavigate();
   const {isAuthenticated, logout, memorizeCurrentPrivateURI} = useAuth();
 
-  useEffect(()=>{
+/*   useEffect(()=>{
     if(isAuthenticated){
       memorizeCurrentPrivateURI('/admin');
     }
     
-  },[isAuthenticated])
+  },[isAuthenticated]) */
 
   
     
@@ -26,12 +36,22 @@ const AdminPanelHome : React.FC = () => {
 
 
   return (
-    <div>
-        <h2 className="font-bold text-xl"> Home Page</h2>
-        <p>Welcome to the home page ! You are logged in.</p>
-        <button onClick={handleLogout}
-          className="bg-slate-400 px-1 hover:bg-slate-300"
-        >Logout</button>
+    <div className='flex flex-col'>
+        
+        <AdminPanelHeader handleLogout={handleLogout} />
+        <Link to="/admin" >Admin Home </Link>
+        <Link to="users" >Users </Link>
+        <div className="mt-2 min-h-[200px] border border-gray-500">
+          
+           
+              <Routes>
+                  <Route path="/users" element={<AdminPanelUser />} />
+                  
+                  <Route path="*" element={<AdminPanelHomContent />} />
+                  
+              </Routes>
+           
+        </div>
     </div>
   )
 }

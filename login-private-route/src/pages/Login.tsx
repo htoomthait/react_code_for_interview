@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import _ from "lodash";
 import { useAuth } from '../stores/AuthProvider';
 
@@ -34,13 +34,16 @@ const Login : React.FC<LoginProps> = () => {
 
     const navigate = useNavigate();
 
-   useEffect(() =>{
-    console.log(`it is authenticated. ${isAuthenticated}`)
-    if(isAuthenticated){
-      navigate(currentPrvateURI);
-    }
-
-   },[isAuthenticated]);
+    useEffect(() =>{
+      console.log(`it is authenticated. ${isAuthenticated}`)
+      console.log(currentPrvateURI);
+  
+      if(isAuthenticated){
+        
+        navigate(currentPrvateURI)
+      }
+      
+     },[isAuthenticated, currentPrvateURI]);
 
     
 
