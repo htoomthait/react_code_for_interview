@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../stores/AuthProvider';
 
 const AdminPanelHome : React.FC = () => {
   const navigate = useNavigate();
+  const {isAuthenticated, logout, memorizeCurrentPrivateURI} = useAuth();
+
+  useEffect(()=>{
+    if(isAuthenticated){
+      memorizeCurrentPrivateURI('/admin');
+    }
+    
+  },[isAuthenticated])
+
+  
     
   const handleLogout = () => {
         
-        localStorage.removeItem('acces_token');
+        logout();
         navigate('/login');
+        
     }
 
 

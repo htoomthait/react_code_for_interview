@@ -1,23 +1,21 @@
-import { useEffect, useState } from 'react';
 import './App.css'
 import Login from './pages/Login'
 import { BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,  } from 'react-router-dom';
+  Navigate,
+    } from 'react-router-dom';
 import AdminPanelHome from './pages/AdminPanelHome';
 import LandingPage from './pages/LandingPage';
+import { useAuth } from './stores/AuthProvider';
 
 
 const App = ( ) =>{
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    if(token){
-      setIsAuthenticated(true);
-    }
-  }, [])
+  
+
+  
+  
   
 
   return (
@@ -28,18 +26,18 @@ const App = ( ) =>{
           <Router>
             <Routes>
                {/* Public Route for Login */}
-               <Route  path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />}/>
+               <Route  path="/login" element={<Login  />}/>
 
                <Route path="/" element={<LandingPage />} />
                 
 
                 {/* Protected Route for Home */}
-                <Route path="/admin/*" element={<PrivateRoute isAuthenticated={isAuthenticated} component={<AdminPanelHome/>} />} />
+                <Route path="/admin/*" element={<PrivateRoute  component={<AdminPanelHome/>} />} />
                   
                 
 
                 {/* Redirect to Login if no match */}
-                <Route path="*" element={<Login setIsAuthenticated={setIsAuthenticated} />}/>
+                <Route path="*" element={<Login />}/>
             </Routes>
           </Router>
           
@@ -58,12 +56,13 @@ const App = ( ) =>{
 }
 
 interface PrivateRouteProps {
-  component: JSX.Element,
-  isAuthenticated : boolean
+  component: JSX.Element,  
 }
 
 
-const PrivateRoute : React.FC<PrivateRouteProps>= ({ isAuthenticated, component }) => {
+const PrivateRoute : React.FC<PrivateRouteProps>= ({component }) => {
+
+  const { isAuthenticated } = useAuth();
   
     return isAuthenticated ? component : <Navigate to="/login" />
   

@@ -1,9 +1,10 @@
-import React, {useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import _ from "lodash";
+import { useAuth } from '../stores/AuthProvider';
 
 interface LoginProps {
-    setIsAuthenticated : (status : boolean) => void;
+    
 }
 
 interface UserLogin{
@@ -21,8 +22,8 @@ const errorInit : LoginFormError = { username: '', password: '', serverResponseM
 
 
 
-const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
-    
+const Login : React.FC<LoginProps> = () => {
+    const {login, isAuthenticated, currentPrvateURI} = useAuth();
 
     const [values, setValues] = useState(formData);
     const [errors , setErrors] = useState(errorInit);
@@ -32,6 +33,14 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
 
 
     const navigate = useNavigate();
+
+   useEffect(() =>{
+    console.log(`it is authenticated. ${isAuthenticated}`)
+    if(isAuthenticated){
+      navigate(currentPrvateURI);
+    }
+
+   },[isAuthenticated]);
 
     
 
@@ -116,8 +125,7 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
       if (response.status == 200) {
           const data = await response.json();
           // Assuming the response contains an access_token
-          localStorage.setItem('access_token', data.access_token);
-          setIsAuthenticated(true);
+          login(data.access_token);
           
           navigate('/admin');
         } 
