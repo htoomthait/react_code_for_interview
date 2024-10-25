@@ -9,7 +9,8 @@ import cors from 'cors';
 // Initialize  the express app
 const app = express();
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
+/* const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173', 'http://localhost'];
+// const allowedOrigins = ['*'];
 
 app.use(cors({
     origin: (origin: any, callback: any) => {
@@ -19,7 +20,11 @@ app.use(cors({
             callback(new Error('Not allowed by CORS'));
         }
     }
-}));
+})); */
+
+// Allow all origins
+app.use(cors());
+
 
 
 

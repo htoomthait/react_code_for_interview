@@ -10,8 +10,14 @@ interface UserLogin{
   username : string;
   password : string;
 }
+
+interface LoginFormError{
+  username : string;
+  password : string;
+  serverResponseMsg : string;
+}
 const formData : UserLogin = { username: '', password: '' };
-const errorInit : UserLogin = { username: '', password: '' };
+const errorInit : LoginFormError = { username: '', password: '', serverResponseMsg : '' };
 
 
 
@@ -59,7 +65,8 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
         }
       }
 
-      setIsValidForm(validFormStatus)
+      setIsSubmitting(false);
+      setIsValidForm(validFormStatus);
 
       
       return validFormStatus;
@@ -67,7 +74,7 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
     }
     const debounceValidateFields = _.debounce(() => { validateForm() }, 500)
 
-    const handleOnChange = (e : React.ChangeEvent<HTMLInputElement> ) => {
+    const handleOnChange = (e : any ) => {
       e.preventDefault();
       
       
@@ -84,7 +91,7 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
     
 
     
-    const handleSubmit = async (e : React.ChangeEvent<HTMLInputElement>) => {
+    const handleSubmit = async (e :any) => {
         e.preventDefault();
 
                 
@@ -93,26 +100,30 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
 
 
         if(validateForm() ){
+          
+
           // Dummy API call for login. Replace with your API endpoint.
-        const response = await fetch('http://localhost:8000/api/authenticate', {
-          method: 'POST',
-          headers: {
-          'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ ...values }),
-      });
+          const response = await fetch('http://localhost:8000/api/authenticate', {
+              method: 'POST',
+              headers: {
+              'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ ...values }),
+          });
 
-      setIsSubmitting(false);
-
+     
+          setIsSubmitting(false);
       if (response.status == 200) {
           const data = await response.json();
           // Assuming the response contains an access_token
           localStorage.setItem('access_token', data.access_token);
           setIsAuthenticated(true);
+          
           navigate('/admin');
         } 
         else if(response.status == 422){
           const msgBody = await response.json();
+          setIsValidForm(false);
 
           msgBody.errorMsg.map((errMsg : any) => {
               console.log(errMsg);
@@ -133,7 +144,9 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
         }
         else if(response.status == 403){
           const msgBody = await response.json();
+          setIsValidForm(false);
           // console.log(msgBody.message);
+          setErrors((prevValues) => ({...prevValues, serverResponseMsg : msgBody.message}));
 
           alert(msgBody.message);
         }
@@ -158,6 +171,7 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
     <>
         <div className='flex flex-col items-center  '>
             <h2 className='font-bold text-xl'> System Login</h2>
+            
             <form onSubmit={handleSubmit}>
             <div className="flex flex-col">
                 <label htmlFor="username" >Username</label>
@@ -171,10 +185,13 @@ const Login : React.FC<LoginProps> = ({setIsAuthenticated}) => {
                 
             </div>
             <div className="mt-1">
-                <button type="submit" 
-                disabled={isSubmitting}
-                className={`bg-slate-500 px-1 hover:bg-amber-100 `}>Login</button>
+                { isSubmitting == true ? <span>Loading...</span> : <button type="submit" 
+                
+                className={`bg-slate-500 px-1 hover:bg-amber-100 `}>Login</button> }
                 <Link to="/" className='text-blue-500 text-sm ml-1'> back to home</Link>
+
+                <br/>
+                { isValidForm == false && isInitialForm == false ? <span className="text-sm text-red-700">Form is invalid to process. <br/>{errors.serverResponseMsg}</span> : null }
             </div>
             </form>
         </div> 
