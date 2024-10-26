@@ -34,16 +34,7 @@ const Login : React.FC<LoginProps> = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() =>{
-      console.log(`it is authenticated. ${isAuthenticated}`)
-      // console.log(currentPrvateURI);
   
-      if(isAuthenticated){
-        
-        navigate(currentPrvateURI)
-      }
-      
-     },[isAuthenticated, currentPrvateURI]);
 
     
 
