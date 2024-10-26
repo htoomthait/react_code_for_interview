@@ -36,7 +36,7 @@ const Login : React.FC<LoginProps> = () => {
 
     useEffect(() =>{
       console.log(`it is authenticated. ${isAuthenticated}`)
-      console.log(currentPrvateURI);
+      // console.log(currentPrvateURI);
   
       if(isAuthenticated){
         

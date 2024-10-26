@@ -18,7 +18,7 @@ const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     login: () => {},
     logout: () => {},
-    currentPrvateURI : "/admin",
+    currentPrvateURI : "",
     memorizeCurrentPrivateURI: () => {}
   });
 
@@ -27,7 +27,7 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
     const [currentPrvateURI, setCurrentPrvateURI] = useState("");
 
     useEffect(() => {
-        const token = localStorage.getItem('access_token');
+        const token =  localStorage.getItem('access_token');
         if (token) {
           setIsAuthenticated(true);
         }

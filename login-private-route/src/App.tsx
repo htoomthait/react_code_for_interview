@@ -8,12 +8,12 @@ import { BrowserRouter as Router,
 import AdminPanelHome from './pages/AdminPanelHome';
 import LandingPage from './pages/LandingPage';
 import { useAuth } from './stores/AuthProvider';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const App = ( ) =>{
 
-  const { isAuthenticated, currentPrvateURI } = useAuth();
+ 
   
   
   
@@ -64,6 +64,26 @@ interface PrivateRouteProps {
 const PrivateRoute : React.FC<PrivateRouteProps>= ({component }) => {
 
   const { isAuthenticated, currentPrvateURI } = useAuth();
+
+  
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (isAuthenticated !== undefined) {
+      // Only update loading state once authentication is resolved
+      setIsLoading(false);
+    }
+  }, [isAuthenticated]);
+
+  if (isLoading) {
+    // Return a loading spinner or any placeholder until auth status is known
+    return <div>Loading...</div>;
+  }
+
+
+
+
 
 
   
