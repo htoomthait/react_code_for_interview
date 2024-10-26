@@ -1,5 +1,7 @@
 .adminNavMenu{
-    @apply flex mt-2 max-sm:flex-col;
+    @apply flex mt-2 max-md:flex-col
+    ;
+    transition: all 500ms ease-out;
 }
 .menuItem{
     @apply    
@@ -12,12 +14,33 @@
     text-center 
     active:bg-amber-200
     active:text-gray-400
-    sm:border-l
-    max-sm:border-t;
+    md:border-l
+    max-md:border-t
+    transition-all duration-500 ease-in-out;
+    transition: all 500ms ease-out;
       
     
-}
+};
 
 .activeMenuItem{
     @apply bg-amber-400;
+}
+
+
+.mainPageContainer{
+    @apply flex max-sm:flex-col flex-wrap
+}
+.pageBlock{
+    transition: opacity 1000ms ease-out, transform 500ms ease-out;
+    @apply 
+    bg-white 
+    sm:w-full
+    md:w-1/4    
+    max-md:mt-1
+    min-h-[200px];
+    
+    
+}
+.pageBlockHide{
+    opacity: 0;
 }

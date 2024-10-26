@@ -25,6 +25,14 @@ export default {
         '8xl': '96rem',
         '9xl': '128rem',
       },
+      transitionDuration: {
+        '200': '200ms',
+        '300': '300ms',
+        '400': '400ms',
+        '500': '500ms',
+        '600': '600ms',
+        '1000': '1000ms',
+      },
       borderRadius: {
         '4xl': '2rem',
       }

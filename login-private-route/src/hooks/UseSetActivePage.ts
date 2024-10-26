@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useAuth } from "../stores/AuthProvider";
 
 
@@ -9,7 +10,11 @@ interface UseActivePage {
 const useSetActivePage: UseActivePage = (page: string): void => {
     const { memoActivePage } = useAuth();
 
-    memoActivePage(page)
+    useEffect(() => {
+        memoActivePage(page)
+    }, [])
+
+
 }
 
 export default useSetActivePage;
