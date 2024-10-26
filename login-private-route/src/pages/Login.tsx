@@ -23,7 +23,7 @@ const errorInit : LoginFormError = { username: '', password: '', serverResponseM
 
 
 const Login : React.FC<LoginProps> = () => {
-    const {login, isAuthenticated, currentPrvateURI} = useAuth();
+    const {login, isAuthenticated, currentPrivateURI: currentPrvateURI} = useAuth();
 
     const [values, setValues] = useState(formData);
     const [errors , setErrors] = useState(errorInit);

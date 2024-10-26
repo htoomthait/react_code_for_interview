@@ -1,0 +1,23 @@
+.adminNavMenu{
+    @apply flex mt-2 max-sm:flex-col;
+}
+.menuItem{
+    @apply    
+    bg-amber-500 
+    hover:bg-amber-300 
+    p-1 
+    text-white 
+    mr-[0px] 
+    min-w-[110px] 
+    text-center 
+    active:bg-amber-200
+    active:text-gray-400
+    sm:border-l
+    max-sm:border-t;
+      
+    
+}
+
+.activeMenuItem{
+    @apply bg-amber-400;
+}

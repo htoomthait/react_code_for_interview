@@ -4,29 +4,22 @@ import AdminPanelHeader from '../components/AdminPanelHeader';
 import { BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
   useNavigate,
   Link
     } from 'react-router-dom';
 import AdminPanelUser from './AdminPanelUser';
 import AdminPanelHomContent from './AdminPanelHomContent';
+import styles from './styles/AdminPanelHome.module.css';
 
 
 const AdminPanelHome : React.FC = () => {
   const navigate = useNavigate();
-  const {isAuthenticated, logout, memorizeCurrentPrivateURI} = useAuth();
+  const {logout, activePage } = useAuth();
 
-/*   useEffect(()=>{
-    if(isAuthenticated){
-      memorizeCurrentPrivateURI('/admin');
-    }
-    
-  },[isAuthenticated]) */
 
   
     
-  const handleLogout = () => {
-        
+  const handleLogout = () => {        
         logout();
         navigate('/login');
         
@@ -39,8 +32,11 @@ const AdminPanelHome : React.FC = () => {
     <div className='flex flex-col'>
         
         <AdminPanelHeader handleLogout={handleLogout} />
-        <Link to="/admin" >Admin Home </Link>
-        <Link to="users" >Users </Link>
+        <div className={styles.adminNavMenu}>
+          <Link to="/admin"  className={`${styles.menuItem} ${ activePage == 'adminHome' ? styles.activeMenuItem : null}`}>Admin Home </Link>
+          <Link to="users" className={`${styles.menuItem} ${ activePage == 'adminUsers' ? styles.activeMenuItem : null}`}>Users </Link>
+        </div>
+        
         <div className="mt-2 min-h-[200px] border border-gray-500">
           
            

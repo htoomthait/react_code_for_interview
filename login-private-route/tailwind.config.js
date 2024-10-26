@@ -30,6 +30,12 @@ export default {
       }
     },
     screens: {
+      '2xs': '280px',
+
+      'xs': '360px',
+
+      '2sm': '480px',
+
       'sm': '640px',
       // => @media (min-width: 640px) { ... }
 
@@ -43,7 +49,30 @@ export default {
       // => @media (min-width: 1280px) { ... }
 
       '2xl': '1536px',
-      // => @media (min-width: 1536px) { ... }
+      // => @media (min-width: 1536px) { ... },
+
+      'max-2xs': { max : '280px'},
+
+      'max-xs': { max : '360px'},
+
+      'max-2sm': { max : '480px'},
+
+      'max-sm': { max : '640px'},
+      // => @media (min-width: 640px) { ... }
+
+      'max-md': { max : '768px'},
+      // => @media (min-width: 768px) { ... }
+
+      'max-lg': { max : '1024px'},
+      // => @media (min-width: 1024px) { ... }
+
+      'max-xl': { max : '1280px'},
+      // => @media (min-width: 1280px) { ... }
+
+      'max-2xl': { max : '1536px'},
+      // => @media (min-width: 1536px) { ... },
+
+      
     },
     spacing: {
       '1': '8px',

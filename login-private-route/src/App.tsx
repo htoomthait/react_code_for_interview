@@ -63,7 +63,7 @@ interface PrivateRouteProps {
 
 const PrivateRoute : React.FC<PrivateRouteProps>= ({component }) => {
 
-  const { isAuthenticated, currentPrvateURI } = useAuth();
+  const { isAuthenticated, currentPrivateURI: currentPrvateURI } = useAuth();
 
   
 

@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
 import { useAuth } from '../stores/AuthProvider';
+import { useLocation } from 'react-router-dom';
+import useSetPrivateURI from '../hooks/UseSetPrivateURI';
+import useSetActivePage from '../hooks/UseSetActivePage';
 
 
 const AdminPanelHomContent : React.FC = () => {
+  
 
-    const {isAuthenticated, logout, memorizeCurrentPrivateURI, currentPrvateURI} = useAuth();
-    useEffect(()=>{
-        if(isAuthenticated){
-          memorizeCurrentPrivateURI('/admin');
-        }
-        
-      },[isAuthenticated])
+  useSetPrivateURI();  
+  useSetActivePage('adminHome');
+
+
+
   return (
     <div>AdminPanelHomContent</div>
   )

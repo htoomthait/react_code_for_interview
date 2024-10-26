@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react'
-import { useAuth } from '../stores/AuthProvider';
+import useSetPrivateURI from '../hooks/UseSetPrivateURI';
+import useSetActivePage from '../hooks/UseSetActivePage';
 
 const AdminPanelUser : React.FC = () => {
-    const {isAuthenticated, logout, memorizeCurrentPrivateURI, currentPrvateURI} = useAuth();
-    useEffect(()=>{
-        if(isAuthenticated){
-          memorizeCurrentPrivateURI('/admin/users');
-        }
-        
-      },[isAuthenticated])
-      console.log(currentPrvateURI)
-      
+    
+  useSetPrivateURI(); 
+  useSetActivePage('adminUsers'); 
     
   return (
     <div>AdminPanelUsers page</div>

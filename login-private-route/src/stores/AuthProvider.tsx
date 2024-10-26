@@ -9,8 +9,10 @@ interface AuthContextType {
     isAuthenticated: boolean;
     login: (accessToken: string) => void;
     logout: () => void;
-    currentPrvateURI : string;
+    currentPrivateURI : string;
     memorizeCurrentPrivateURI: (uri : string) => void;
+    activePage : string;
+    memoActivePage : (page : string) => void;
   }
 
 // Create AuthContext with the correct type, providing default values
@@ -18,13 +20,17 @@ const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     login: () => {},
     logout: () => {},
-    currentPrvateURI : "",
-    memorizeCurrentPrivateURI: () => {}
+    currentPrivateURI : "",
+    memorizeCurrentPrivateURI: () => {},
+    activePage : "",
+    memoActivePage : () => {}
+    
   });
 
 export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentPrvateURI, setCurrentPrvateURI] = useState("");
+    const [activePage, setActivePage] = useState("");
 
     useEffect(() => {
         const token =  localStorage.getItem('access_token');
@@ -61,9 +67,13 @@ export const AuthProvider : React.FC<AuthProviderProps> = ({children}) => {
         setCurrentPrvateURI(uri);
       }
 
+      const memoActivePage = (page : string) => {
+        setActivePage(page);
+      }
+
       
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, currentPrvateURI, memorizeCurrentPrivateURI }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, currentPrivateURI: currentPrvateURI, memorizeCurrentPrivateURI, activePage, memoActivePage }}>
       {children}
     </AuthContext.Provider>
   )
